@@ -4,4 +4,7 @@
     <string name="Entra">Join</string>
     <string name="Accedi">Log In</string>
     <string name="Registrati">Sign In</string>
+    <string name="Registrazione">Sign Up</string>
+    <string name="Nome">Name</string>
+    <string name="Cognome">Surname</string>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IlSocial</string>
+    <string name="app_name">IlSocial.</string>
     <string name="LogoSocial" translatable="false">LogoSocial</string>
     <string name="email" translatable="false">Email</string>
     <string name="password" translatable="false">Password</string>
@@ -7,7 +7,7 @@
     <string name="Accedi">Accedi</string>
     <string name="Registrati">Registrati</string>
     <string name="Registrazione">Registrazione</string>
-    <string name="Username">Username</string>
+    <string name="Username" translatable="false">Username</string>
     <string name="Nome">Nome</string>
     <string name="Cognome">Cognome</string>
 </resources>
