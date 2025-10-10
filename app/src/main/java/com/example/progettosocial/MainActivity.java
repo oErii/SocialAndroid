@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     else{
                         Toast.makeText(this, "Username o password errati", Toast.LENGTH_SHORT).show();
                     }
-                }
+                }d
         );
     }
 }
