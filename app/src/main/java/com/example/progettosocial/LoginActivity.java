@@ -11,14 +11,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.progettosocial.databinding.ActivityLoginBinding;
+import com.example.progettosocial.model.DatabaseUtenti;
 import com.example.progettosocial.model.Utente;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-
-    private  static final String EMAIL = "enrico.tarulli@gmail.com";
-    private  static final String PASSWORD = "Psw123!";
+    DatabaseUtenti db = DatabaseUtenti.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +33,32 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.Accedi.setOnClickListener(
                 v->{
-                    if (EMAIL.equals(binding.Email.getText().toString())&& PASSWORD.equals(binding.Psw.getText().toString())){
+                    String email = binding.Email.getText().toString().trim();
+                    String password = binding.Psw.getText().toString().trim();
+
+                    if (email.isEmpty() || password.isEmpty()) {
+                        Toast.makeText(this, "Inserisci Email e Password", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    boolean trovato = false;
+                    Utente utenteTrovato = null;
+                    for (Utente u : db.getUtenti()) {
+                        if (u.getEmail().equals(email) && u.getPassword().equals(password)) {
+                            trovato = true;
+                            utenteTrovato = u;
+                            break;
+                        }
+                    }
+
+                    if (trovato) {
+                        Toast.makeText(this, "Login riuscito!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        // intent.putExtra("username",binding.username.getText().toString());
-                        Utente utente = new Utente("oErii", EMAIL, PASSWORD, "Enrico", "Tarulli");
-                        intent.putExtra("utente",utente);
+                        intent.putExtra("utente",utenteTrovato);
                         startActivity(intent);
                         finish();
-                    }
-                    else{
-                        Toast.makeText(this, "Username o password errati", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Email o Password Errati", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
