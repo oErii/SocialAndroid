@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TheSocial</string>
+    <string name="Entra">Join</string>
+    <string name="Accedi">Log In</string>
+    <string name="Registrati">Sign In</string>
+</resources>
