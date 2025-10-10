@@ -6,4 +6,8 @@
     <string name="Entra">Entra</string>
     <string name="Accedi">Accedi</string>
     <string name="Registrati">Registrati</string>
+    <string name="Registrazione">Registrazione</string>
+    <string name="Username">Username</string>
+    <string name="Nome">Nome</string>
+    <string name="Cognome">Cognome</string>
 </resources>

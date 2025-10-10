@@ -1,6 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/registrazione"
+    tools:context=".RegistrazioneActivity">
+
+    <ImageView
+        android:id="@+id/LogoSocial"
+        android:layout_width="0.0dp"
+        android:layout_height="0.0dp"
+        android:contentDescription="@string/LogoSocial"
+
+        app:layout_constraintWidth_percent="0.2"
+        app:layout_constraintHeight_percent="0.2"
+        android:src="@drawable/social_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="35dp"/>
+
+    <!-- Titolo -->
+
+    <TextView
+        android:id="@+id/Titolo"
+        android:text="@string/Registrazione"
+        app:layout_constraintTop_toBottomOf="@id/LogoSocial"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        />
+
+    <!-- Campo Nome -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/NomeBox"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Titolo"
+        android:hint="@string/Nome"
+        android:layout_marginTop="5dp">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Campo Cognome -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/CognomeBox"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NomeBox"
+        android:hint="@string/Cognome"
+        android:layout_marginTop="5dp">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Cognome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!-- Campo Username -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/UsernameBox"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CognomeBox"
+        android:hint="@string/Username"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Campo Email -->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/EmailBox"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UsernameBox"
+        android:hint="@string/email"
+        android:layout_marginTop="5dp">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Campo Password -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/PswBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/EmailBox"
+        android:hint="@string/password"
+        android:layout_marginTop="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Psw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/Registrati"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        android:text="@string/Registrati"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PswBox"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/verde"
+        />
+
+
+
+    <Button
+        style="?attr/materialButtonOutlinedStyle"
+        android:id="@+id/Accedi"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        android:text="@string/Accedi"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Registrati"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/material_dynamic_neutral30"
+        app:strokeColor="@color/verde"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

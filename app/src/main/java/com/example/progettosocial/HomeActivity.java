@@ -1,4 +1,6 @@
 package com.example.progettosocial;
 
-public class HomeActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class HomeActivity  extends AppCompatActivity {
 }
