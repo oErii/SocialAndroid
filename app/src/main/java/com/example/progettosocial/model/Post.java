@@ -9,28 +9,62 @@ import java.time.LocalDateTime;
 @Entity
 public class Post {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private Long id;
     @ColumnInfo
-    private Utente user;
+    private String nomeCompleto;
+    @ColumnInfo
     private String content;
-    private LocalDateTime data;
+    @ColumnInfo
+    private String data;
+    @ColumnInfo
     private int likes;
 
-    public Post(Utente user, String content, LocalDateTime date) {
-        this.user = user;
+    public Post(){}
+
+    public Post(Long id,String nomeCompleto, String content, String date) {
+        this.nomeCompleto = nomeCompleto;
         this.content = content;
         this.data = date;
         this.likes = 0;
     }
 
-    // getter e setter
-
-    public Utente getUser() {
-        return user;
+    public Long getId() {
+        return id;
     }
-    public String getContent() { return content; }
-    public LocalDateTime getDate() { return data; }
-    public int getLikes() { return likes; }
-    public void setContent(String content) { this.content = content; }
-    public void addLike() { likes++; }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 }

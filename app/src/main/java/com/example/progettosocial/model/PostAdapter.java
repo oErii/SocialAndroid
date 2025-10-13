@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progettosocial.R;
+import com.example.progettosocial.utils.DBManager;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -16,8 +17,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
 
     private List<Post> posts;
 
-    public PostAdapter() {
-        this.posts = DatabasePost.getInstance().getPosts();
+    public PostAdapter(List<Post> all) {
+        this.posts = all;
     }
 
     @NonNull
@@ -31,10 +32,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = posts.get(position);
-        holder.textViewUser.setText(post.getUser().getNome()+" "+post.getUser().getCognome());
+        holder.textViewUser.setText(post.getNomeCompleto());
         holder.textViewPostContent.setText(post.getContent());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        holder.textViewDate.setText(post.getDate().format(formatter));
+        holder.textViewDate.setText(post.getData());
     }
 
     @Override

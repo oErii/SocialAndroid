@@ -9,19 +9,19 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.progettosocial.dao.PostDAO;
 import com.example.progettosocial.databinding.ActivityHomeBinding;
-import com.example.progettosocial.model.DatabasePost;
 import com.example.progettosocial.model.Post;
 import com.example.progettosocial.model.PostAdapter;
 import com.example.progettosocial.model.Utente;
+import com.example.progettosocial.utils.DBManager;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class HomeActivity  extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
-
-    DatabasePost db = DatabasePost.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +34,20 @@ public class HomeActivity  extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         Utente user =(Utente)  getIntent().getSerializableExtra("utente");
-
-        // --- Aggiungo un post di esempio/test ---
-        if (DatabasePost.getInstance().getPosts().isEmpty()) {
-
-            Post esempio = new Post(user, "IlSocial.", LocalDateTime.now());
-            DatabasePost.getInstance().getPosts().add(esempio);
-        }
+        String nome=user.getNome()+" "+user.getCognome();
+        DBManager db = DBManager.getInstance(this);
+        PostDAO postDao = db.getPostDao();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        Post esempio1 = new Post(null, nome, "IlSocial.", LocalDateTime.now().format(formatter).toString());
+        Post esempio2 = new Post(null, nome, "IlSocial.", LocalDateTime.now().format(formatter).toString());
+        Post esempio3 = new Post(null, nome, "IlSocial.", LocalDateTime.now().format(formatter).toString());
+        postDao.insertPost(esempio1);
+        postDao.insertPost(esempio2);
+        postDao.insertPost(esempio3);
 
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
-        PostAdapter adapter = new PostAdapter();
+        PostAdapter adapter = new PostAdapter(postDao.getAll());
         binding.recyclerViewPosts.setAdapter(adapter);
 
     }

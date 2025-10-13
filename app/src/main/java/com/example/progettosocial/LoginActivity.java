@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
                     String pswIns = binding.Psw.getText().toString().trim();
                     if (utente.getEmail().equals(emailIns)&& utente.getPassword().equals(pswIns)){
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        // intent.putExtra("username",binding.username.getText().toString());
                         Preferences.salvaEmail(this, emailIns);
                         Preferences.salvaPsw(this, pswIns);
                         intent.putExtra("utente",utente);
