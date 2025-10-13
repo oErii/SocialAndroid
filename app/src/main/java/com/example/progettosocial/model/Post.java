@@ -1,8 +1,16 @@
 package com.example.progettosocial.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.time.LocalDateTime;
 
+@Entity
 public class Post {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    @ColumnInfo
     private Utente user;
     private String content;
     private LocalDateTime data;

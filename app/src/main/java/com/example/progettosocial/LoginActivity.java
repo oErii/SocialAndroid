@@ -11,13 +11,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.progettosocial.databinding.ActivityLoginBinding;
-import com.example.progettosocial.model.DatabaseUtenti;
 import com.example.progettosocial.model.Utente;
+import com.example.progettosocial.utils.Preferences;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-    DatabaseUtenti db = DatabaseUtenti.getInstance();
+
+    Utente utente = new Utente("oErii", "enrico.tarulli@gmail.com", "psw", "Enrico", "Tarulli");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,35 +33,32 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
+        String email = Preferences.caricaEmail(this);
+        String psw = Preferences.caricaPsw(this);
+
+        if (email.equals(utente.getEmail())&&psw.equals(utente.getPassword())){
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.putExtra("utente",utente);
+            startActivity(intent);
+        }
+
         binding.Accedi.setOnClickListener(
                 v->{
-                    String email = binding.Email.getText().toString().trim();
-                    String password = binding.Psw.getText().toString().trim();
-
-                    if (email.isEmpty() || password.isEmpty()) {
-                        Toast.makeText(this, "Inserisci Email e Password", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    boolean trovato = false;
-                    Utente utenteTrovato = null;
-                    for (Utente u : db.getUtenti()) {
-                        if (u.getEmail().equals(email) && u.getPassword().equals(password)) {
-                            trovato = true;
-                            utenteTrovato = u;
-                            break;
-                        }
-                    }
-
-                    if (trovato) {
-                        Toast.makeText(this, "Login riuscito!", Toast.LENGTH_SHORT).show();
+                    String emailIns = binding.Email.getText().toString().toLowerCase().trim();
+                    String pswIns = binding.Psw.getText().toString().trim();
+                    if (utente.getEmail().equals(emailIns)&& utente.getPassword().equals(pswIns)){
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        intent.putExtra("utente",utenteTrovato);
+                        // intent.putExtra("username",binding.username.getText().toString());
+                        Preferences.salvaEmail(this, emailIns);
+                        Preferences.salvaPsw(this, pswIns);
+                        intent.putExtra("utente",utente);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(this, "Email o Password Errati", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Username o password errati", Toast.LENGTH_SHORT).show();
                     }
+
+
                 }
         );
 

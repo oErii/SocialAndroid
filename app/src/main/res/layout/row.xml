@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Questo è il testo del post in stile Twitter/X."
+            android:text="Questo è il testo del post."
             />
 
     </LinearLayout>

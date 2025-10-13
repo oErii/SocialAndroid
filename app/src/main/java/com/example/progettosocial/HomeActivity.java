@@ -44,8 +44,6 @@ public class HomeActivity  extends AppCompatActivity {
             DatabasePost.getInstance().getPosts().add(esempio);
         }
 
-
-
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
         PostAdapter adapter = new PostAdapter();
         binding.recyclerViewPosts.setAdapter(adapter);
