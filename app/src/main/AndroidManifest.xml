@@ -23,6 +23,7 @@
 
         <activity android:name=".RegistrazioneActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".CommentiActivity"></activity>
     </application>
 
 </manifest>

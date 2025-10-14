@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".CommentiActivity">
 
     <!-- Header -->
     <LinearLayout
@@ -31,10 +31,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Home"
+            android:text="@string/Commenti"
             android:textColor="@color/white"
             android:textSize="30sp"
-            android:layout_marginTop="10dp"
             />
 
     </LinearLayout>
@@ -49,7 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/separatore"
-        tools:listitem="@layout/row_post"
+        tools:listitem="@layout/row_commento"
         />
 
     <View
@@ -59,11 +58,11 @@
         app:layout_constraintTop_toBottomOf="@id/recyclerViewPosts"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/PostBox"
+        app:layout_constraintBottom_toTopOf="@id/CommentoBox"
         android:background="#DDDDDD" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/PostBox"
+        android:id="@+id/CommentoBox"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.90"
         android:layout_height="wrap_content"
@@ -71,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/separatore"
-        android:hint="@string/ScrPost"
+        android:hint="@string/ScrCommento"
         android:layout_marginBottom="5dp"
         app:boxStrokeColor="@color/verde"
         app:endIconMode="custom"
@@ -79,7 +78,7 @@
         app:endIconContentDescription="@string/iconaPosta">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/PostContent"
+            android:id="@+id/CommentoContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

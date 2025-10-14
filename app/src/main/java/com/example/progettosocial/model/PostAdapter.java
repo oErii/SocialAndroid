@@ -8,9 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progettosocial.R;
-import com.example.progettosocial.utils.DBManager;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
@@ -25,7 +23,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row, parent, false);
+                .inflate(R.layout.row_post, parent, false);
         return new PostViewHolder(view);
     }
 
@@ -41,4 +39,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     public int getItemCount() {
         return posts.size();
     }
+
 }

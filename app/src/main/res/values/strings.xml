@@ -11,4 +11,10 @@
     <string name="Nome">Nome</string>
     <string name="Cognome">Cognome</string>
     <string name="Home">Home\n</string>
+    <string name="Commenti">Commenti</string>
+    <string name="ScrPost">Scrivi Post...</string>
+    <string name="iconaPosta">icona posta\n</string>
+    <string name="ScrCommento">Scrivi Commento...</string>
+    <string name="Modifica">Modifica</string>
+    <string name="Elimina">Elimina</string>
 </resources>

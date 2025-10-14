@@ -4,10 +4,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-public class Post {
+public class Post implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private Long id;
     @ColumnInfo

@@ -11,7 +11,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.progettosocial.dao.PostDAO;
+import com.example.progettosocial.databinding.ActivityCommentiBinding;
 import com.example.progettosocial.databinding.ActivityHomeBinding;
+import com.example.progettosocial.model.Commento;
+import com.example.progettosocial.model.CommentoAdapter;
 import com.example.progettosocial.model.Post;
 import com.example.progettosocial.model.PostAdapter;
 import com.example.progettosocial.model.Utente;
@@ -19,15 +22,17 @@ import com.example.progettosocial.utils.DBManager;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class HomeActivity  extends AppCompatActivity {
+public class CommentiActivity extends AppCompatActivity {
 
-    private ActivityHomeBinding binding;
+    private ActivityCommentiBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding  = ActivityHomeBinding.inflate(getLayoutInflater());
+        binding = ActivityCommentiBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
         ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
@@ -37,28 +42,25 @@ public class HomeActivity  extends AppCompatActivity {
             return insets;
         });
 
-        Utente user =(Utente)  getIntent().getSerializableExtra("utente");
-        String nome=user.getNome()+" "+user.getCognome();
-        DBManager db = DBManager.getInstance(this);
-        PostDAO postDao = db.getPostDao();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
-        PostAdapter adapter = new PostAdapter(postDao.getAll());
+        ArrayList<Commento> listaCommenti= new ArrayList<>();
+        CommentoAdapter adapter = new CommentoAdapter(listaCommenti);
         binding.recyclerViewPosts.setAdapter(adapter);
+        Post post =(Post) getIntent().getSerializableExtra("post");
 
-        binding.PostBox.setEndIconOnClickListener(v -> {
-            String contenutoPost = binding.PostContent.getText().toString();
-            if(contenutoPost.isEmpty()) {
-                Toast.makeText(this, "Post Vuoto", Toast.LENGTH_SHORT).show();
+        binding.CommentoBox.setEndIconOnClickListener(v -> {
+            String contenutoCommento = binding.CommentoContent.getText().toString();
+            if(contenutoCommento.isEmpty()) {
+                Toast.makeText(this, "Commento Vuoto", Toast.LENGTH_SHORT).show();
             }else {
 
-                Post nuovoPost = new Post(null, nome, contenutoPost, LocalDateTime.now().format(formatter).toString());
-                postDao.insertPost(nuovoPost);
-                PostAdapter adapterNuovo = new PostAdapter(postDao.getAll());
+                Commento nuovoCommento = new Commento("Mario Rossi", contenutoCommento, LocalDateTime.now().format(formatter).toString());
+                listaCommenti.add(nuovoCommento);
+                CommentoAdapter adapterNuovo = new CommentoAdapter(listaCommenti);
                 binding.recyclerViewPosts.setAdapter(adapterNuovo);
 
-
-                binding.PostContent.setText(null);//svuota il campo dopo avere creato il post
+                binding.CommentoContent.setText(null);//svuota il campo dopo avere creato il post
             }
         });
     }
