@@ -33,10 +33,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
         holder.textViewUser.setText(post.getNomeCompleto());
         holder.textViewPostContent.setText(post.getContent());
         holder.textViewDate.setText(post.getData());
+        holder.setPost(post);
     }
 
     @Override
     public int getItemCount() {
         return posts.size();
     }
+
 }
