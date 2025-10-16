@@ -7,7 +7,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.progettosocial.CommentiActivity;
 import com.example.progettosocial.R;
 
 public class PostViewHolder extends RecyclerView.ViewHolder{
@@ -24,7 +23,5 @@ public class PostViewHolder extends RecyclerView.ViewHolder{
             intent.putExtra("post",post);
             itemView.getContext().startActivity(intent);
         });
-
-
     }
 }
