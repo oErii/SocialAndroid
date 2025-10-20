@@ -24,7 +24,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_post, parent, false);
-        return new PostViewHolder(view);
+        return new PostViewHolder(view, this);
     }
 
     @Override
@@ -39,6 +39,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
     @Override
     public int getItemCount() {
         return posts.size();
+    }
+
+    public void aggiornaLista(List<Post> posts) {
+        this.posts = posts;
     }
 
 }
