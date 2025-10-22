@@ -1,4 +1,4 @@
-package com.example.progettosocial;
+package com.example.progettosocial.ui;
 
 import android.os.Bundle;
 

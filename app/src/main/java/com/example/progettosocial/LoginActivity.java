@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentContainerView;
 
 import com.example.progettosocial.dao.PostDAO;
 import com.example.progettosocial.databinding.ActivityLoginBinding;
-import com.example.progettosocial.model.Post;
 import com.example.progettosocial.utils.DBManager;
 
 public class LoginActivity extends AppCompatActivity {

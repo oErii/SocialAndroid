@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/registrazione"
-    tools:context=".RegistrazioneActivity">
+    android:id="@+id/registrazione">
 
     <ImageView
         android:id="@+id/LogoSocial"
@@ -149,6 +148,27 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/RipPswBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PswBox"
+        android:hint="@string/password"
+        android:layout_marginTop="5dp"
+        app:boxStrokeColor="@color/verde"
+        app:endIconMode="password_toggle">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/RipPsw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/Registrati"
@@ -159,7 +179,7 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PswBox"
+        app:layout_constraintTop_toBottomOf="@id/RipPswBox"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/verde"
         />

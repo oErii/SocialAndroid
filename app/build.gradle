@@ -31,7 +31,10 @@ android {
 }
 
 dependencies {
-
+    implementation libs.okhttp
+    implementation libs.jackson.databind
+    implementation libs.jackson.core
+    implementation libs.jackson.annotations
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
     def room_version = "2.8.2"

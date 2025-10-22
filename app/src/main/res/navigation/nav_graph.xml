@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.progettosocial.LoginFragment"
+        android:name="com.example.progettosocial.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -18,12 +18,12 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.progettosocial.HomeFragment"
+        android:name="com.example.progettosocial.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <argument
             android:name="Utente"
-            app:argType="com.example.progettosocial.model.Utente" />
+            app:argType="com.example.progettosocial.api.dto.response.UtenteInfoDTO" />
         <action
             android:id="@+id/action_homeFragment_to_commentiFragment"
             app:destination="@id/commentiFragment" />
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/registrazioneFragment"
-        android:name="com.example.progettosocial.RegistrazioneFragment"
+        android:name="com.example.progettosocial.ui.RegistrazioneFragment"
         android:label="fragment_registrazione"
         tools:layout="@layout/fragment_registrazione" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/commentiFragment"
-        android:name="com.example.progettosocial.CommentiFragment"
+        android:name="com.example.progettosocial.ui.CommentiFragment"
         android:label="fragment_commenti"
         tools:layout="@layout/fragment_commenti" >
         <argument

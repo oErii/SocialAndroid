@@ -36,24 +36,24 @@
         android:layout_marginTop="40dp"
         />
 
-    <!-- Campo Email -->
+    <!-- Campo Username -->
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/EmailBox"
+        android:id="@+id/UsernameBox"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.8"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Titolo"
-        android:hint="@string/email"
+        android:hint="@string/Username"
         android:layout_marginTop="15dp"
         app:boxStrokeColor="@color/verde"
         >
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Email"
+            android:id="@+id/Username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -67,7 +67,7 @@
         app:layout_constraintWidth_percent="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/EmailBox"
+        app:layout_constraintTop_toBottomOf="@id/UsernameBox"
         android:hint="@string/password"
         android:layout_marginTop="5dp"
         app:boxStrokeColor="@color/verde"

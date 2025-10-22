@@ -1,6 +1,5 @@
 package com.example.progettosocial.model;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -13,11 +12,10 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.progettosocial.HomeFragmentDirections;
 import com.example.progettosocial.LoginActivity;
-import com.example.progettosocial.LoginFragmentDirections;
 import com.example.progettosocial.R;
 import com.example.progettosocial.dao.PostDAO;
+import com.example.progettosocial.ui.HomeFragmentDirections;
 import com.example.progettosocial.utils.DBManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
