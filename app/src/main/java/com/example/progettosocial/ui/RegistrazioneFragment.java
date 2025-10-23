@@ -65,6 +65,7 @@ public class RegistrazioneFragment extends Fragment implements Callback {
                 }
         );
 
+
     }
 
     @Override

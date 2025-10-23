@@ -29,6 +29,7 @@
             />
 
         <TextView
+            android:id="@+id/titolo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Home"
@@ -36,6 +37,14 @@
             android:textSize="30sp"
             android:layout_marginTop="10dp"
             />
+
+        <Button
+            android:id="@+id/iconButton"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/icnLogOut"
+            app:icon="@drawable/logout" />
 
     </LinearLayout>
 

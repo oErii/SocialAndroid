@@ -7,6 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -24,6 +27,7 @@ import com.example.progettosocial.databinding.FragmentHomeBinding;
 import com.example.progettosocial.model.Post;
 import com.example.progettosocial.model.PostAdapter;
 import com.example.progettosocial.utils.DBManager;
+import com.example.progettosocial.utils.Preferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -90,6 +94,10 @@ public class HomeFragment extends Fragment implements Callback {
             }
         });
 
+        binding.iconButton.setOnClickListener(v->{
+            ApiManager.getInstance().logout(this,requireContext());
+        });
+
     }
 
     @Override
@@ -139,7 +147,22 @@ public class HomeFragment extends Fragment implements Callback {
                     Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();
                 });
             }
+        }else if(url.contains("logout")){
+            if (response.isSuccessful()) {
+                Preferences.saveTKN(requireContext(), "");
+                String body=response.body().string();
+                requireActivity().runOnUiThread(() -> {
+                    Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();
+                    NavController controller = Navigation.findNavController(binding.getRoot());
+                    NavDirections destinazione= HomeFragmentDirections.actionHomeFragmentToLoginFragment();
+                    controller.navigate(destinazione);
+                });
+            }else {
+                String body=response.body().string();
+                requireActivity().runOnUiThread(()->{
+                    Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();
+                });
+            }
         }
-
     }
 }
