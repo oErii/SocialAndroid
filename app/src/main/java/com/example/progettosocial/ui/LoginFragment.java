@@ -50,13 +50,13 @@ public class LoginFragment extends Fragment implements Callback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        UtenteInfoDTO utenteInfoDTO=null;
-        if(!Preferences.loadUtente(getContext()).getEmail().equals("")) {
-            utenteInfoDTO = Preferences.loadUtente(getContext());
+        String jwt=null;
+        if(!Preferences.loadTKN(getContext()).isEmpty()) {
+            jwt = Preferences.loadTKN(getContext());
         }
-        if (utenteInfoDTO!=null){
+        if (jwt!=null){
             NavController controller = Navigation.findNavController(binding.getRoot());
-            NavDirections destinazione= LoginFragmentDirections.actionLoginFragmentToHomeFragment(utenteInfoDTO);
+            NavDirections destinazione= LoginFragmentDirections.actionLoginFragmentToHomeFragment();
             controller.navigate(destinazione);
         }
 
@@ -64,7 +64,7 @@ public class LoginFragment extends Fragment implements Callback {
                 v->{
                     LoginRequest loginRequest = new LoginRequest(binding.Username.getText().toString(),
                             binding.Psw.getText().toString());
-                    ApiManager.getInstance().login(loginRequest,this);
+                    ApiManager.getInstance().login(loginRequest, this);
                 }
         );
 
@@ -100,7 +100,7 @@ public class LoginFragment extends Fragment implements Callback {
 
             requireActivity().runOnUiThread(()->{
                 NavController controller = Navigation.findNavController(binding.getRoot());
-                NavDirections destinazione=LoginFragmentDirections.actionLoginFragmentToHomeFragment(utente);
+                NavDirections destinazione=LoginFragmentDirections.actionLoginFragmentToHomeFragment();
                 controller.navigate(destinazione);
             });
             }

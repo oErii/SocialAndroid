@@ -12,22 +12,32 @@ public class Post implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private Long id;
     @ColumnInfo
-    private String nomeCompleto;
+    private String username;
     @ColumnInfo
-    private String content;
+    private String testo;
     @ColumnInfo
     private String data;
     @ColumnInfo
-    private int likes;
+    private Long likes;
+    @ColumnInfo
+    private Long numeroCommenti;
+    @ColumnInfo
+    private boolean liked;
+    @ColumnInfo
+    private boolean mine;
+
+    public Post(Long id, String username, String testo, String data, Long likes, Long numeroCommenti, boolean liked, boolean mine) {
+        this.id = id;
+        this.username = username;
+        this.testo = testo;
+        this.data = data;
+        this.likes = likes;
+        this.numeroCommenti = numeroCommenti;
+        this.liked = liked;
+        this.mine = mine;
+    }
 
     public Post(){}
-
-    public Post(Long id,String nomeCompleto, String content, String date) {
-        this.nomeCompleto = nomeCompleto;
-        this.content = content;
-        this.data = date;
-        this.likes = 0;
-    }
 
     public Long getId() {
         return id;
@@ -37,20 +47,20 @@ public class Post implements Serializable {
         this.id = id;
     }
 
-    public String getNomeCompleto() {
-        return nomeCompleto;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getContent() {
-        return content;
+    public String getTesto() {
+        return testo;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setTesto(String testo) {
+        this.testo = testo;
     }
 
     public String getData() {
@@ -61,11 +71,35 @@ public class Post implements Serializable {
         this.data = data;
     }
 
-    public int getLikes() {
+    public Long getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(Long likes) {
         this.likes = likes;
+    }
+
+    public Long getNumeroCommenti() {
+        return numeroCommenti;
+    }
+
+    public void setNumeroCommenti(Long numeroCommenti) {
+        this.numeroCommenti = numeroCommenti;
+    }
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
+    public boolean isMine() {
+        return mine;
+    }
+
+    public void setMine(boolean mine) {
+        this.mine = mine;
     }
 }

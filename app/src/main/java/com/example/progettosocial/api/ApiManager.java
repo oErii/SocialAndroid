@@ -1,11 +1,15 @@
 package com.example.progettosocial.api;
 
+import android.content.Context;
+
 import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.request.RegistrazioneRequest;
+import com.example.progettosocial.utils.Preferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -15,7 +19,6 @@ import okhttp3.RequestBody;
 public class ApiManager {
 
     private static ApiManager instance;
-
     private final ObjectMapper mapper = new ObjectMapper();
     private final OkHttpClient client = new OkHttpClient();
     private final String BASE_URL="https://socialmaster.ddns.net";
@@ -61,12 +64,22 @@ public class ApiManager {
         client.newCall(request).enqueue(callback);
     }
 
-    public void logout(Callback callback){
+    public void logout(Callback callback, Context context){
         Request request = new Request.Builder()
                 .url(BASE_URL+"/Utente/logout")
                 .get()
                 .header("key",API_KEY)
-                .header("Authorization","Il vostro JWT")
+                .header("Authorization",Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void getLastPost(Callback callback, Context context){
+        Request request =new Request.Builder()
+                .url(BASE_URL+"/Post/getLastPost")
+                .get()
+                .header("key",API_KEY)
+                .header("Authorization", Preferences.loadTKN(context))
                 .build();
         client.newCall(request).enqueue(callback);
     }

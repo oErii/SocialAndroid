@@ -21,9 +21,6 @@
         android:name="com.example.progettosocial.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
-        <argument
-            android:name="Utente"
-            app:argType="com.example.progettosocial.api.dto.response.UtenteInfoDTO" />
         <action
             android:id="@+id/action_homeFragment_to_commentiFragment"
             app:destination="@id/commentiFragment" />
