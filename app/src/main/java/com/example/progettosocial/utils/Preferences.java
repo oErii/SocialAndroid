@@ -5,29 +5,23 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.response.UtenteInfoDTO;
 
 public class Preferences {
-    public static void saveUtente(Context context , UtenteInfoDTO utente) {
-        SharedPreferences sp = context.getSharedPreferences("utente" , MODE_PRIVATE);
+    public static void saveLoginRequest(Context context , LoginRequest loginRequest) {
+        SharedPreferences sp = context.getSharedPreferences("loginRequest" , MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("username", utente.getUsername());
-        editor.putString("nome", utente.getNome());
-        editor.putString("cognome", utente.getCognome());
-        editor.putString("email", utente.getEmail());
-        editor.putLong("id", utente.getId());
+        editor.putString("username", loginRequest.getUsername());
+        editor.putString("psw", loginRequest.getPassword());
         editor.apply();
     }
 
-    public static UtenteInfoDTO loadUtente(Context context) {
-        SharedPreferences sp = context.getSharedPreferences("utente", MODE_PRIVATE);
-        return new UtenteInfoDTO(
-
+    public static LoginRequest loadLoginRequest(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("loginRequest", MODE_PRIVATE);
+        return new LoginRequest(
                 sp.getString("username",""),
-                sp.getString("email",""),
-                sp.getString("nome",""),
-                sp.getString("cognome",""),
-                sp.getLong("id",0)
+                sp.getString("psw","")
         );
     };
 
@@ -41,5 +35,17 @@ public class Preferences {
     public static String loadTKN(Context context){
         SharedPreferences sp = context.getSharedPreferences("jwt", MODE_PRIVATE);
         return sp.getString("jwt", "");
+    }
+
+    public static void setLoggato(Context context, boolean loggato){
+        SharedPreferences sp = context.getSharedPreferences("isLoggato", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("loggato", loggato);
+        editor.apply();
+    }
+
+    public static boolean isLoggato(Context context){
+        SharedPreferences sp = context.getSharedPreferences("isLoggato", MODE_PRIVATE);
+        return sp.getBoolean("loggato", false);
     }
 }

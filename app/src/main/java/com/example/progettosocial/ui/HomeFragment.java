@@ -21,7 +21,6 @@ import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.CreatePostRequest;
 import com.example.progettosocial.api.dto.response.LastPostResponse;
 import com.example.progettosocial.api.dto.response.PostDTO;
-import com.example.progettosocial.api.dto.response.UtenteInfoDTO;
 import com.example.progettosocial.dao.PostDAO;
 import com.example.progettosocial.databinding.FragmentHomeBinding;
 import com.example.progettosocial.model.Post;
@@ -31,9 +30,6 @@ import com.example.progettosocial.utils.Preferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -150,6 +146,7 @@ public class HomeFragment extends Fragment implements Callback {
         }else if(url.contains("logout")){
             if (response.isSuccessful()) {
                 Preferences.saveTKN(requireContext(), "");
+                Preferences.setLoggato(requireContext(),false);
                 String body=response.body().string();
                 requireActivity().runOnUiThread(() -> {
                     Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();

@@ -32,6 +32,7 @@ import okhttp3.Response;
 public class LoginFragment extends Fragment implements Callback {
 
     FragmentLoginBinding binding;
+    LoginRequest loginRequest;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,19 +51,15 @@ public class LoginFragment extends Fragment implements Callback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String jwt=null;
-        if(!Preferences.loadTKN(getContext()).isEmpty()) {
-            jwt = Preferences.loadTKN(getContext());
-        }
-        if (jwt!=null){
-            NavController controller = Navigation.findNavController(binding.getRoot());
-            NavDirections destinazione= LoginFragmentDirections.actionLoginFragmentToHomeFragment();
-            controller.navigate(destinazione);
+
+        if(Preferences.isLoggato(requireContext())) {
+            loginRequest = Preferences.loadLoginRequest(requireContext());
+            ApiManager.getInstance().login(loginRequest, this);
         }
 
         binding.Accedi.setOnClickListener(
                 v->{
-                    LoginRequest loginRequest = new LoginRequest(binding.Username.getText().toString(),
+                    loginRequest = new LoginRequest(binding.Username.getText().toString(),
                             binding.Psw.getText().toString());
                     ApiManager.getInstance().login(loginRequest, this);
                 }
@@ -92,11 +89,12 @@ public class LoginFragment extends Fragment implements Callback {
         if (response.isSuccessful()){
             String jwt = response.header("Authorization");
             Preferences.saveTKN(getContext(), jwt);
+            Preferences.setLoggato(requireContext(), true);
             ObjectMapper mapper = new ObjectMapper();
             try {
 
                 UtenteInfoDTO utente = mapper.readValue(response.body().string(), UtenteInfoDTO.class);
-                Preferences.saveUtente(getContext(), utente);
+                Preferences.saveLoginRequest(getContext(), loginRequest);
 
             requireActivity().runOnUiThread(()->{
                 NavController controller = Navigation.findNavController(binding.getRoot());
