@@ -2,6 +2,7 @@ package com.example.progettosocial.api;
 
 import android.content.Context;
 
+import com.example.progettosocial.api.dto.request.CreateLikeRequest;
 import com.example.progettosocial.api.dto.request.CreatePostRequest;
 import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.request.RegistrazioneRequest;
@@ -95,6 +96,23 @@ public class ApiManager {
         RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
         Request request =new Request.Builder()
                 .url(BASE_URL+"/Post/createPost")
+                .post(requestBody)
+                .header("key",API_KEY)
+                .header("Authorization", Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void toggleLike(CreateLikeRequest createLikeRequest, Callback callback, Context context){
+        String body=null;
+        try{
+            body=mapper.writeValueAsString(createLikeRequest);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
+        Request request =new Request.Builder()
+                .url(BASE_URL+"/Like/toggleLike")
                 .post(requestBody)
                 .header("key",API_KEY)
                 .header("Authorization", Preferences.loadTKN(context))
