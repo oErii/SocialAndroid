@@ -91,7 +91,7 @@ public class LoginFragment extends Fragment implements Callback {
     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
         if (response.isSuccessful()){
             String jwt = response.header("Authorization");
-            Preferences.saveTKN(getContext(), jwt.toString());
+            Preferences.saveTKN(getContext(), jwt);
             ObjectMapper mapper = new ObjectMapper();
             try {
 

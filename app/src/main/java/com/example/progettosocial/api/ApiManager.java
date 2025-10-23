@@ -2,6 +2,7 @@ package com.example.progettosocial.api;
 
 import android.content.Context;
 
+import com.example.progettosocial.api.dto.request.CreatePostRequest;
 import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.request.RegistrazioneRequest;
 import com.example.progettosocial.utils.Preferences;
@@ -78,6 +79,23 @@ public class ApiManager {
         Request request =new Request.Builder()
                 .url(BASE_URL+"/Post/getLastPost")
                 .get()
+                .header("key",API_KEY)
+                .header("Authorization", Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void creaPost(CreatePostRequest createPostRequest, Callback callback, Context context){
+        String body=null;
+        try {
+            body = mapper.writeValueAsString(createPostRequest);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
+        Request request =new Request.Builder()
+                .url(BASE_URL+"/Post/createPost")
+                .post(requestBody)
                 .header("key",API_KEY)
                 .header("Authorization", Preferences.loadTKN(context))
                 .build();
