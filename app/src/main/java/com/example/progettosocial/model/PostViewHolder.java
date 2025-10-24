@@ -32,9 +32,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         textViewDate = itemView.findViewById(R.id.RowPostDate);
         textViewPostContent = itemView.findViewById(R.id.RowPostContent);
         itemView.setOnClickListener(v->{
-            NavController controller = Navigation.findNavController(itemView);
-            NavDirections destinazione= HomeFragmentDirections.actionHomeFragmentToCommentiFragment(post);
-            controller.navigate(destinazione);
+
+
         });
 
         setForContextMenu(itemView);

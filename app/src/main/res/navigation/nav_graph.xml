@@ -43,8 +43,9 @@
         android:name="com.example.progettosocial.ui.CommentiFragment"
         android:label="fragment_commenti"
         tools:layout="@layout/fragment_commenti" >
+
         <argument
-            android:name="Post"
-            app:argType="com.example.progettosocial.model.Post" />
+            android:name="listaCommenti"
+            app:argType="com.example.progettosocial.api.dto.response.CommentiByPostResponse" />
     </fragment>
 </navigation>

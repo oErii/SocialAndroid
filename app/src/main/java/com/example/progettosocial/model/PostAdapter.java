@@ -11,7 +11,7 @@ import com.example.progettosocial.R;
 
 import java.util.List;
 
-public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
+public class PostAdapter extends RecyclerView.Adapter<NuovoPostViewHolder>{
 
     private List<Post> posts;
 
@@ -21,18 +21,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder>{
 
     @NonNull
     @Override
-    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NuovoPostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.row_post, parent, false);
-        return new PostViewHolder(view, this);
+        return new NuovoPostViewHolder(view, this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NuovoPostViewHolder holder, int position) {
         Post post = posts.get(position);
         holder.textViewUser.setText(post.getUsername());
         holder.textViewPostContent.setText(post.getTesto());
         holder.textViewDate.setText(post.getData());
+        holder.textViewCommenti.setText(post.getNumeroCommenti().toString());
+        holder.textViewLikes.setText(post.getLikes().toString());
         holder.setPost(post);
     }
 

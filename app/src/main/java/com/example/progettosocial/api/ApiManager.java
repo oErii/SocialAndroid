@@ -120,4 +120,13 @@ public class ApiManager {
         client.newCall(request).enqueue(callback);
     }
 
+    public void getCommentiByPost(Long idPost, Callback callback, Context context){
+        Request request = new Request.Builder()
+                .url(BASE_URL+"/Commento/getCommentiByPost/"+idPost )
+                .get()
+                .header("key",API_KEY)
+                .header("Authorization",Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
 }

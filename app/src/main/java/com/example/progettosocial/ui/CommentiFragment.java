@@ -14,14 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.progettosocial.api.dto.response.CommentoDTO;
 import com.example.progettosocial.databinding.FragmentCommentiBinding;
-import com.example.progettosocial.model.Commento;
 import com.example.progettosocial.model.CommentoAdapter;
-import com.example.progettosocial.model.Post;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
 
 public class CommentiFragment extends Fragment {
 
@@ -59,12 +56,12 @@ public class CommentiFragment extends Fragment {
             return insets;
         });
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        ArrayList<Commento> listaCommenti= new ArrayList<>();
+
+
+        List<CommentoDTO> listaCommenti =commentiFA.getListaCommenti().getListaCommenti();
         CommentoAdapter adapter = new CommentoAdapter(listaCommenti);
         binding.recyclerViewPosts.setAdapter(adapter);
-        Post post =commentiFA.getPost();
 
         binding.CommentoBox.setEndIconOnClickListener(v -> {
             String contenutoCommento = binding.CommentoContent.getText().toString();
@@ -72,7 +69,7 @@ public class CommentiFragment extends Fragment {
                 Toast.makeText(getContext(), "Commento Vuoto", Toast.LENGTH_SHORT).show();
             }else {
 
-                Commento nuovoCommento = new Commento("Mario Rossi", contenutoCommento, LocalDateTime.now().format(formatter).toString());
+                CommentoDTO nuovoCommento = new CommentoDTO();
                 listaCommenti.add(nuovoCommento);
                 CommentoAdapter adapterNuovo = new CommentoAdapter(listaCommenti);
                 binding.recyclerViewPosts.setAdapter(adapterNuovo);

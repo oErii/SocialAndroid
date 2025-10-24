@@ -18,9 +18,7 @@ import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.response.UtenteInfoDTO;
 import com.example.progettosocial.databinding.FragmentLoginBinding;
-import com.example.progettosocial.model.Utente;
 import com.example.progettosocial.utils.Preferences;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;

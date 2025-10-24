@@ -22,9 +22,11 @@ import com.example.progettosocial.LoginActivity;
 import com.example.progettosocial.R;
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.CreateLikeRequest;
+import com.example.progettosocial.api.dto.response.CommentiByPostResponse;
 import com.example.progettosocial.dao.PostDAO;
 import com.example.progettosocial.ui.HomeFragmentDirections;
 import com.example.progettosocial.utils.DBManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.IOException;
@@ -34,7 +36,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class NuovoPostViewHolder extends RecyclerView.ViewHolder implements Callback {
-    TextView textViewUser, textViewDate, textViewPostContent;
+    TextView textViewUser, textViewDate, textViewPostContent, textViewLikes, textViewCommenti;
     Post post;
     PostAdapter postA;
     public NuovoPostViewHolder(@NonNull View itemView, PostAdapter postA) {
@@ -43,13 +45,14 @@ public class NuovoPostViewHolder extends RecyclerView.ViewHolder implements Call
         textViewUser = itemView.findViewById(R.id.RowUserName);
         textViewDate = itemView.findViewById(R.id.RowPostDate);
         textViewPostContent = itemView.findViewById(R.id.RowPostContent);
+        textViewLikes = itemView.findViewById(R.id.numeroLike);
+        textViewCommenti = itemView.findViewById(R.id.numeroCommenti);
+
 
         GestureDetector gestureDetector = new GestureDetector(itemView.getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-                NavController controller = Navigation.findNavController(itemView);
-                NavDirections destinazione = HomeFragmentDirections.actionHomeFragmentToCommentiFragment(post);
-                controller.navigate(destinazione);
+                ApiManager.getInstance().getCommentiByPost(post.getId(), NuovoPostViewHolder.this, itemView.getContext());
                 return true;
             }
 
@@ -117,21 +120,57 @@ public class NuovoPostViewHolder extends RecyclerView.ViewHolder implements Call
 
     @Override
     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-        if(response.isSuccessful()){
-            String body=response.body().string();
-            itemView.post(() -> {
-                Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
-            });
-        } else if (response.code()==400) {
-            String body=response.body().string();
-            itemView.post(() -> {
-                Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
-            });
-        } else if (response.code()==404) {
-            String body=response.body().string();
-            itemView.post(() -> {
-                Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
-            });
+        String url = call.request().url().toString();
+
+        if(url.contains("toggleLike")){
+            if(response.isSuccessful()){
+                String body=response.body().string();
+                itemView.post(() -> {
+                    Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
+                    // Aggiorna localmente
+                    if (body.contains("rimosso")) {
+                        textViewLikes.setText(Long.toString(Long.parseLong(textViewLikes.getText().toString())-1));
+                    } else {
+                        textViewLikes.setText(Long.toString(Long.parseLong(textViewLikes.getText().toString())+1));
+                    }
+                });
+            } else if (response.code()==400) {
+                String body=response.body().string();
+                itemView.post(() -> {
+                    Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
+                });
+            } else if (response.code()==404) {
+                String body=response.body().string();
+                itemView.post(() -> {
+                    Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
+                });
+            }
+
+
+        } else if (url.contains("getCommentiByPost")) {
+            if(response.isSuccessful()){
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    CommentiByPostResponse lista = mapper.readValue(response.body().string(), CommentiByPostResponse.class);
+                    itemView.post(() -> {
+                        NavController controller = Navigation.findNavController(itemView);
+                        NavDirections destinazione = HomeFragmentDirections.actionHomeFragmentToCommentiFragment(lista);
+                        controller.navigate(destinazione);
+                    });
+                }catch(Exception e){
+                    throw new RuntimeException(e);
+                }
+            } else if (response.code()==400) {
+                String body=response.body().string();
+                itemView.post(() -> {
+                    Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
+                });
+            }else if (response.code()==404) {
+                String body=response.body().string();
+                itemView.post(() -> {
+                    Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
+                });
+            }
         }
     }
 }

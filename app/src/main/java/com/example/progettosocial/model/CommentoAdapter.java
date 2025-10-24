@@ -8,13 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.progettosocial.R;
+import com.example.progettosocial.api.dto.response.CommentiByPostResponse;
+import com.example.progettosocial.api.dto.response.CommentoDTO;
 
 import java.util.List;
 
 public class CommentoAdapter extends RecyclerView.Adapter<CommentoViewHolder>{
-    private List<Commento> commenti;
+    private List<CommentoDTO> commenti;
 
-    public CommentoAdapter(List<Commento> all) {
+    public CommentoAdapter(List<CommentoDTO> all) {
         this.commenti = all;
     }
 
@@ -28,10 +30,10 @@ public class CommentoAdapter extends RecyclerView.Adapter<CommentoViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull CommentoViewHolder holder, int position) {
-        Commento commento = commenti.get(position);
-        holder.textViewUser.setText(commento.getNomeCompleto());
-        holder.textViewPostContent.setText(commento.getContent());
-        holder.textViewDate.setText(commento.getData());
+        CommentoDTO commento = commenti.get(position);
+        holder.textViewUser.setText(commento.getAutore().getUsername());
+        holder.textViewPostContent.setText(commento.getTesto());
+        holder.textViewDate.setText(commento.getDataPubblicazione());
     }
 
     @Override
