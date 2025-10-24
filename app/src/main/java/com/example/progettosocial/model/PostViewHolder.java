@@ -4,6 +4,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -22,7 +23,10 @@ import com.example.progettosocial.LoginActivity;
 import com.example.progettosocial.R;
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.CreateLikeRequest;
+import com.example.progettosocial.api.dto.request.DeletePostRequest;
 import com.example.progettosocial.api.dto.response.CommentiByPostResponse;
+import com.example.progettosocial.api.dto.response.LastPostResponse;
+import com.example.progettosocial.api.dto.response.PostDTO;
 import com.example.progettosocial.dao.PostDAO;
 import com.example.progettosocial.ui.HomeFragmentDirections;
 import com.example.progettosocial.utils.DBManager;
@@ -81,9 +85,9 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements Callback 
 
                             })
                             .setNegativeButton("Elimina", (dialog, position) -> {
-                                postdao.deletePost(post);
-                                postA.aggiornaLista(postdao.getAll());
-                                postA.notifyDataSetChanged();
+                                if(post.isMine()) {
+                                    ApiManager.getInstance().deletePost(new DeletePostRequest(post.getId()), this, itemView.getContext());
+                                }
                             })
                             .show();
                 } else {
@@ -171,6 +175,56 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements Callback 
                     Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
                 });
             }
+        } else if (url.contains("deletePost")) {
+            if(response.isSuccessful()){
+                String body=response.body().string();
+                itemView.post(() -> {
+                    Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
+                    ApiManager.getInstance().getLastPost(this, itemView.getContext());
+                });
+            } else if (response.code()==400) {
+            String body=response.body().string();
+            itemView.post(() -> {
+                Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
+            });
+            }else if (response.code()==403) {
+                String body=response.body().string();
+                itemView.post(() -> {
+                    Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
+                });
+            }else if (response.code()==404) {
+                String body = response.body().string();
+                itemView.post(() -> {
+                    Toast.makeText(itemView.getContext(), body, Toast.LENGTH_SHORT).show();
+                });
+            }
+        }else if (url.contains("getLastPost")) {
+
+            if (!response.isSuccessful()) {
+                itemView.post(() -> {
+                    Toast.makeText(itemView.getContext(), "Impossibile caricare i post", Toast.LENGTH_SHORT).show();
+                });
+            } else {
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    LastPostResponse lastPost = mapper.readValue(response.body().string(), LastPostResponse.class);
+                    itemView.post(() -> {
+                        DBManager db = DBManager.getInstance(itemView.getContext());
+                        PostDAO postDao = db.getPostDao();
+                        postDao.deleteAll();
+                        for (PostDTO post : lastPost.getPostList()) {
+                            postDao.insertPost(new Post(post.getId(), post.getAutore().getUsername(), post.getTesto(), post.getDataPubblicazione(), post.getNumeroLikes(), post.getNumeroCommenti(), post.isLiked(), post.isMine()));
+                        }
+
+                        postA.aggiornaLista(postDao.getAll());
+                        postA.notifyDataSetChanged();
+
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
         }
     }
 }
