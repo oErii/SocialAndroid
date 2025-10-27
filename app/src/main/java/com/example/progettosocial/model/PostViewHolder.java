@@ -158,7 +158,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements Callback 
                     CommentiByPostResponse lista = mapper.readValue(response.body().string(), CommentiByPostResponse.class);
                     itemView.post(() -> {
                         NavController controller = Navigation.findNavController(itemView);
-                        NavDirections destinazione = HomeFragmentDirections.actionHomeFragmentToCommentiFragment(lista);
+                        NavDirections destinazione = HomeFragmentDirections.actionHomeFragmentToCommentiFragment(lista, post);
                         controller.navigate(destinazione);
                     });
                 }catch(Exception e){

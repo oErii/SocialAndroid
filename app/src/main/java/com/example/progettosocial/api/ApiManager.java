@@ -2,8 +2,10 @@ package com.example.progettosocial.api;
 
 import android.content.Context;
 
+import com.example.progettosocial.api.dto.request.CreateCommentoRequest;
 import com.example.progettosocial.api.dto.request.CreateLikeRequest;
 import com.example.progettosocial.api.dto.request.CreatePostRequest;
+import com.example.progettosocial.api.dto.request.DeleteCommentoRequest;
 import com.example.progettosocial.api.dto.request.DeletePostRequest;
 import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.request.RegistrazioneRequest;
@@ -141,6 +143,40 @@ public class ApiManager {
         RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
         Request request = new Request.Builder()
                 .url(BASE_URL+"/Post/deletePost")
+                .post(requestBody)
+                .header("key",API_KEY)
+                .header("Authorization",Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void creaCommento(CreateCommentoRequest createCommentoRequest, Callback callback, Context context){
+        String body=null;
+        try {
+            body = mapper.writeValueAsString(createCommentoRequest);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
+        Request request =new Request.Builder()
+                .url(BASE_URL+"/Commento/createCommento")
+                .post(requestBody)
+                .header("key",API_KEY)
+                .header("Authorization", Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void deleteCommento(DeleteCommentoRequest deleteCommentoRequest, Callback callback, Context context){
+        String body=null;
+        try{
+            body=mapper.writeValueAsString(deleteCommentoRequest);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
+        Request request = new Request.Builder()
+                .url(BASE_URL+"/Commento/deleteCommento")
                 .post(requestBody)
                 .header("key",API_KEY)
                 .header("Authorization",Preferences.loadTKN(context))

@@ -47,5 +47,8 @@
         <argument
             android:name="listaCommenti"
             app:argType="com.example.progettosocial.api.dto.response.CommentiByPostResponse" />
+        <argument
+            android:name="Post"
+            app:argType="com.example.progettosocial.model.Post" />
     </fragment>
 </navigation>
