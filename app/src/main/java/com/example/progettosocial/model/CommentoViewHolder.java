@@ -16,6 +16,8 @@ import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.DeleteCommentoRequest;
 import com.example.progettosocial.api.dto.response.CommentoDTO;
 import com.example.progettosocial.dao.PostDAO;
+import com.example.progettosocial.ui.CommentiFragment;
+import com.example.progettosocial.ui.HomeFragment;
 import com.example.progettosocial.utils.DBManager;
 import com.example.progettosocial.utils.Preferences;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -99,6 +101,10 @@ public class CommentoViewHolder extends RecyclerView.ViewHolder implements Callb
                                 }
                             })
                             .show();
+                } else if (item.getItemId() == R.id.Modifica) {
+                    CommentiFragment.modificaTesto.setText(commento.getTesto());
+                    CommentiFragment.modificaOn=true;
+                    CommentiFragment.commento=commento;
                 }
                 return true;
             });

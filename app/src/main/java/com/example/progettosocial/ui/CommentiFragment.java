@@ -14,12 +14,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.CreateCommentoRequest;
+import com.example.progettosocial.api.dto.request.UpdateCommentoRequest;
 import com.example.progettosocial.api.dto.response.CommentiByPostResponse;
 import com.example.progettosocial.api.dto.response.CommentoDTO;
 import com.example.progettosocial.databinding.FragmentCommentiBinding;
 import com.example.progettosocial.model.CommentoAdapter;
 import com.example.progettosocial.model.ListaPostCallback;
+import com.example.progettosocial.model.Post;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.io.IOException;
 import java.util.List;
 import okhttp3.Call;
@@ -32,6 +36,9 @@ public class CommentiFragment extends Fragment implements Callback, ListaPostCal
 
     CommentiFragmentArgs commentiFA;
     Long postID;
+    public static Boolean modificaOn=false;
+    public static CommentoDTO commento;
+    public static TextInputEditText modificaTesto;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,7 @@ public class CommentiFragment extends Fragment implements Callback, ListaPostCal
             return insets;
         });
 
+        modificaTesto=binding.CommentoContent;
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
@@ -72,14 +80,22 @@ public class CommentiFragment extends Fragment implements Callback, ListaPostCal
         binding.recyclerViewPosts.setAdapter(adapter);
 
         binding.CommentoBox.setEndIconOnClickListener(v -> {
-            String contenutoCommento = binding.CommentoContent.getText().toString();
-            if(contenutoCommento.isEmpty()) {
-                Toast.makeText(getContext(), "Commento Vuoto", Toast.LENGTH_SHORT).show();
-            }else {
+            if(!modificaOn) {
+                String contenutoCommento = binding.CommentoContent.getText().toString();
+                if (contenutoCommento.isEmpty()) {
+                    Toast.makeText(getContext(), "Commento Vuoto", Toast.LENGTH_SHORT).show();
+                } else {
 
-                CreateCommentoRequest nuovoCommentoRequest = new CreateCommentoRequest(postID, contenutoCommento);
-                ApiManager.getInstance().creaCommento(nuovoCommentoRequest, this, requireContext());
+                    CreateCommentoRequest nuovoCommentoRequest = new CreateCommentoRequest(postID, contenutoCommento);
+                    ApiManager.getInstance().creaCommento(nuovoCommentoRequest, this, requireContext());
+                    binding.CommentoContent.setText(null);
+                }
+            }else {
+                UpdateCommentoRequest updateCommentoRequest =new UpdateCommentoRequest(commento.getId(), binding.CommentoContent.getText().toString());
+                ApiManager.getInstance().updateCommento(updateCommentoRequest, this, getContext());
                 binding.CommentoContent.setText(null);
+                modificaOn = false;
+                commento = null;
             }
         });
     }
@@ -127,6 +143,19 @@ public class CommentiFragment extends Fragment implements Callback, ListaPostCal
                     Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();
                 });
             }else if(response.code()==404){
+                String body=response.body().string();
+                requireActivity().runOnUiThread(()->{
+                    Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();
+                });
+            }
+        }else if (url.contains("updateCommento")) {
+            if(response.isSuccessful()){
+                String body=response.body().string();
+                requireActivity().runOnUiThread(()->{
+                    Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();
+                    ApiManager.getInstance().getCommentiByPost(postID, this, getContext());
+                });
+            }else {
                 String body=response.body().string();
                 requireActivity().runOnUiThread(()->{
                     Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();

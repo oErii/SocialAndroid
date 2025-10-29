@@ -9,6 +9,8 @@ import com.example.progettosocial.api.dto.request.DeleteCommentoRequest;
 import com.example.progettosocial.api.dto.request.DeletePostRequest;
 import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.request.RegistrazioneRequest;
+import com.example.progettosocial.api.dto.request.UpdateCommentoRequest;
+import com.example.progettosocial.api.dto.request.UpdatePostRequest;
 import com.example.progettosocial.utils.Preferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -180,6 +182,40 @@ public class ApiManager {
                 .post(requestBody)
                 .header("key",API_KEY)
                 .header("Authorization",Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void updateCommento(UpdateCommentoRequest updateCommentoRequest, Callback callback, Context context){
+        String body=null;
+        try{
+            body=mapper.writeValueAsString(updateCommentoRequest);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
+        Request request = new Request.Builder()
+                .url(BASE_URL+"/Commento/updateCommento")
+                .post(requestBody)
+                .header("key",API_KEY)
+                .header("Authorization",Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void updatePost(UpdatePostRequest updatePostRequest, Callback callback, Context context) {
+        String body = null;
+        try {
+            body = mapper.writeValueAsString(updatePostRequest);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
+        Request request = new Request.Builder()
+                .url(BASE_URL + "/Post/updatePost")
+                .post(requestBody)
+                .header("key", API_KEY)
+                .header("Authorization", Preferences.loadTKN(context))
                 .build();
         client.newCall(request).enqueue(callback);
     }

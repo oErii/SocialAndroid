@@ -28,6 +28,7 @@ import com.example.progettosocial.api.dto.response.CommentiByPostResponse;
 import com.example.progettosocial.api.dto.response.LastPostResponse;
 import com.example.progettosocial.api.dto.response.PostDTO;
 import com.example.progettosocial.dao.PostDAO;
+import com.example.progettosocial.ui.HomeFragment;
 import com.example.progettosocial.ui.HomeFragmentDirections;
 import com.example.progettosocial.utils.DBManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -87,9 +88,20 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements Callback 
                             .setNegativeButton("Elimina", (dialog, position) -> {
                                 if(post.isMine()) {
                                     ApiManager.getInstance().deletePost(new DeletePostRequest(post.getId()), this, itemView.getContext());
+                                }else {
+                                    Toast.makeText(itemView.getContext(), "Il post non è tuo", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .show();
+                } else if (item.getItemId() == R.id.Modifica) {
+                    if(post.isMine()) {
+                        HomeFragment.modificaTesto.setText(post.getTesto());
+                        HomeFragment.modificaOn = true;
+                        HomeFragment.post = post;
+                    }
+                    else{
+                        Toast.makeText(itemView.getContext(), "Il Post non è tuo", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     postdao.updatePost(post);
                 }

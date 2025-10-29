@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.CreatePostRequest;
+import com.example.progettosocial.api.dto.request.UpdatePostRequest;
 import com.example.progettosocial.api.dto.response.LastPostResponse;
 import com.example.progettosocial.api.dto.response.PostDTO;
 import com.example.progettosocial.dao.PostDAO;
@@ -28,6 +29,8 @@ import com.example.progettosocial.model.PostAdapter;
 import com.example.progettosocial.utils.DBManager;
 import com.example.progettosocial.utils.Preferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
 
@@ -42,6 +45,9 @@ public class HomeFragment extends Fragment implements Callback {
     DBManager db;
     PostDAO postDao;
     PostAdapter adapter;
+    public static Boolean modificaOn=false;
+    public static Post post;
+    public static TextInputEditText modificaTesto;
 
 
     @Override
@@ -75,18 +81,27 @@ public class HomeFragment extends Fragment implements Callback {
             );
             return insets;
         });
+        modificaTesto=binding.PostContent;
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new PostAdapter(postDao.getAll());
         binding.recyclerViewPosts.setAdapter(adapter);
 
         binding.PostBox.setEndIconOnClickListener(v -> {
-            String contenutoPost = binding.PostContent.getText().toString();
-            if(contenutoPost.isEmpty()) {
-                Toast.makeText(getContext(), "Post Vuoto", Toast.LENGTH_SHORT).show();
-            }else {
-                CreatePostRequest nuovoPostRequest = new CreatePostRequest(contenutoPost);
-                ApiManager.getInstance().creaPost(nuovoPostRequest, this, requireContext());
-                binding.PostContent.setText(null);//svuota il campo dopo avere creato il post
+            if(!modificaOn) {
+                String contenutoPost = binding.PostContent.getText().toString();
+                if (contenutoPost.isEmpty()) {
+                    Toast.makeText(getContext(), "Post Vuoto", Toast.LENGTH_SHORT).show();
+                } else {
+                    CreatePostRequest nuovoPostRequest = new CreatePostRequest(contenutoPost);
+                    ApiManager.getInstance().creaPost(nuovoPostRequest, this, requireContext());
+                    binding.PostContent.setText(null);//svuota il campo dopo avere creato il post
+                }
+            } else{
+                UpdatePostRequest updatePostRequest = new UpdatePostRequest(post.getId(), binding.PostContent.getText().toString());
+                ApiManager.getInstance().updatePost(updatePostRequest, this, getContext());
+                binding.PostContent.setText(null);
+                modificaOn = false;
+                post = null;
             }
         });
 
@@ -153,6 +168,19 @@ public class HomeFragment extends Fragment implements Callback {
                     NavController controller = Navigation.findNavController(binding.getRoot());
                     NavDirections destinazione= HomeFragmentDirections.actionHomeFragmentToLoginFragment();
                     controller.navigate(destinazione);
+                });
+            }else {
+                String body=response.body().string();
+                requireActivity().runOnUiThread(()->{
+                    Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();
+                });
+            }
+        } else if (url.contains("updatePost")) {
+            if(response.isSuccessful()){
+                String body=response.body().string();
+                requireActivity().runOnUiThread(()->{
+                    Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();
+                    ApiManager.getInstance().getLastPost(this, getContext());
                 });
             }else {
                 String body=response.body().string();
