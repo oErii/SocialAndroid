@@ -10,7 +10,7 @@
     <string name="Username" translatable="false">Username</string>
     <string name="Nome">Nome</string>
     <string name="Cognome">Cognome</string>
-    <string name="Home">Home\n</string>
+    <string name="Home">Home</string>
     <string name="Commenti">Commenti</string>
     <string name="ScrPost">Scrivi Post...</string>
     <string name="iconaPosta">icona posta\n</string>
@@ -21,4 +21,16 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="EliminaPost">Vuoi eliminare il Post?</string>
     <string name="icnLogOut">icona LogOut\n</string>
+    <string name="iconaProfilo">Icona Profilo</string>
+    <string name="ModificaUtente">Modifica Utente</string>
+    <string name="ModificaUsername">Mofdica Username</string>
+    <string name="ModificaPassword">Modifica Password</string>
+    <string name="Logout">Logout</string>
+    <string name="menu">Menu</string>
+    <string name="Salva">Salva Modifiche</string>
+    <string name="Indietro">Indietro</string>
+    <string name="Profilo">Profilo</string>
+    <string name="RipetiPassword">Ripeti Password</string>
+    <string name="PannContr">Pannello di Controllo</string>
+    <string name="ProfiloUtente">Profilo Utente</string>
 </resources>

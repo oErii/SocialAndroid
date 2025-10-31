@@ -4,7 +4,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
-
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;

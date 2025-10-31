@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -50,5 +53,44 @@
         <argument
             android:name="Post"
             app:argType="com.example.progettosocial.model.Post" />
+        <action
+            android:id="@+id/action_commentiFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.progettosocial.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_modificaFragment"
+            app:destination="@id/modificaFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_modificaPswFragment"
+            app:destination="@id/modificaPswFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/modificaFragment"
+        android:name="com.example.progettosocial.ui.ModificaUtenteFragment"
+        android:label="fragment_modifica"
+        tools:layout="@layout/fragment_modifica_utente" >
+        <action
+            android:id="@+id/action_modificaFragment_to_profileFragment2"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/modificaPswFragment"
+        android:name="com.example.progettosocial.ui.ModificaPswFragment"
+        android:label="fragment_modifica_psw"
+        tools:layout="@layout/fragment_modifica_psw" >
+        <action
+            android:id="@+id/action_modificaPswFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

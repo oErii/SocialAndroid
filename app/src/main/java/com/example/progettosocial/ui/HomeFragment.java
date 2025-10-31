@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.progettosocial.R;
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.CreatePostRequest;
 import com.example.progettosocial.api.dto.request.UpdatePostRequest;
@@ -29,6 +30,7 @@ import com.example.progettosocial.model.PostAdapter;
 import com.example.progettosocial.utils.DBManager;
 import com.example.progettosocial.utils.Preferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -81,6 +83,19 @@ public class HomeFragment extends Fragment implements Callback {
             );
             return insets;
         });
+
+        /* Top App Bar */
+
+        MaterialToolbar toolbar = binding.topAppBar;
+
+        binding.imgUserProfile.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(binding.getRoot());
+            NavDirections destinazione= HomeFragmentDirections.actionHomeFragmentToProfileFragment();
+            controller.navigate(destinazione);
+        });
+
+        /* Contenuto Pagina*/
+
         modificaTesto=binding.PostContent;
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new PostAdapter(postDao.getAll());
@@ -105,9 +120,6 @@ public class HomeFragment extends Fragment implements Callback {
             }
         });
 
-        binding.iconButton.setOnClickListener(v->{
-            ApiManager.getInstance().logout(this,requireContext());
-        });
 
     }
 

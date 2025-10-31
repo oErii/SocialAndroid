@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CommentiActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/registrazione">
 
     <!-- Top App Bar -->
     <com.google.android.material.appbar.MaterialToolbar
@@ -21,12 +21,11 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical">
 
-            <!-- Immagine profilo -->
             <ImageView
-                android:id="@+id/imgUserProfile"
+                android:id="@+id/imgHome"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_profile_placeholder"
+                android:src="@drawable/home"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="6dp"
@@ -46,50 +45,77 @@
         </RelativeLayout>
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <!-- Lista Post -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewPosts"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="8dp"
+    <!-- Titolo -->
+
+    <TextView
+        android:id="@+id/Titolo"
+        android:text="@string/ModificaPassword"
         app:layout_constraintTop_toBottomOf="@id/topAppBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/separatore"
-        tools:listitem="@layout/row_commento"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:layout_marginTop="10dp"
         />
 
-    <View
-        android:id="@+id/separatore"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewPosts"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/CommentoBox"
-        android:background="#DDDDDD" />
-
+    <!-- Campo Password -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/CommentoBox"
+        android:id="@+id/PswBox"
         android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.90"
         android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/separatore"
-        android:hint="@string/ScrCommento"
-        android:layout_marginBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@id/Titolo"
+        android:hint="@string/password"
+        android:layout_marginTop="10dp"
         app:boxStrokeColor="@color/verde"
-        app:endIconMode="custom"
-        app:endIconDrawable="@drawable/send"
-        app:endIconContentDescription="@string/iconaPosta">
+        app:endIconMode="password_toggle">
+
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/CommentoContent"
+            android:id="@+id/Psw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/RipPswBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PswBox"
+        android:hint="@string/RipetiPassword"
+        android:layout_marginTop="5dp"
+        app:boxStrokeColor="@color/verde"
+        app:endIconMode="password_toggle">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/RipPsw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/SalvaBtn"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        android:text="@string/Salva"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/RipPswBox"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/verde"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.progettosocial.R;
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.LoginRequest;
+import com.example.progettosocial.api.dto.request.UpdateUtenteRequest;
 import com.example.progettosocial.api.dto.response.UtenteInfoDTO;
-import com.example.progettosocial.databinding.FragmentLoginBinding;
+import com.example.progettosocial.databinding.FragmentModificaUtenteBinding;
+import com.example.progettosocial.databinding.FragmentProfileBinding;
 import com.example.progettosocial.utils.Preferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,52 +30,36 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class LoginFragment extends Fragment implements Callback {
 
-    FragmentLoginBinding binding;
-    LoginRequest loginRequest;
+public class ModificaUtenteFragment extends Fragment implements Callback {
+
+    FragmentModificaUtenteBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        binding = FragmentLoginBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
+        binding = FragmentModificaUtenteBinding.inflate(inflater, container, false);
+        return binding.getRoot();    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        binding.imgHome.setOnClickListener(v->{
+            NavController controller = Navigation.findNavController(binding.getRoot());
+            NavDirections destinazione=ModificaUtenteFragmentDirections.actionModificaFragmentToProfileFragment2();
+            controller.navigate(destinazione);
+        });
 
-        if(Preferences.isLoggato(requireContext())) {
-            loginRequest = Preferences.loadLoginRequest(requireContext());
-            ApiManager.getInstance().login(loginRequest, this);
-        }
-
-        binding.Accedi.setOnClickListener(
-                v->{
-                    loginRequest = new LoginRequest(binding.Username.getText().toString(),
-                            binding.Psw.getText().toString());
-                    ApiManager.getInstance().login(loginRequest, this);
-                }
-        );
-
-        binding.Registrati.setOnClickListener(
-                v->{
-
-                    NavController controller = Navigation.findNavController(binding.getRoot());
-                    NavDirections destinazione=LoginFragmentDirections.actionLoginFragmentToRegistrazioneFragment();
-                    controller.navigate(destinazione);
-
-
-                }
-        );
+        binding.ModificaBtn.setOnClickListener(v -> {
+            ApiManager.getInstance().updateUtente(new UpdateUtenteRequest(binding.Username.getText().toString(), binding.Nome.getText().toString(), binding.Cognome.getText().toString()), this,  getContext());
+        });
     }
 
     @Override
@@ -84,27 +71,23 @@ public class LoginFragment extends Fragment implements Callback {
 
     @Override
     public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-        if (response.isSuccessful()){
-            String jwt = response.header("Authorization");
-            Preferences.saveTKN(getContext(), jwt);
-            Preferences.setLoggato(requireContext(), true);
+        if (response.isSuccessful()) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-
+                String psw = Preferences.loadLoginRequest(getContext()).getPassword();
                 UtenteInfoDTO utente = mapper.readValue(response.body().string(), UtenteInfoDTO.class);
-                Preferences.saveLoginRequest(getContext(), loginRequest);
+                Preferences.saveLoginRequest(getContext(), new LoginRequest(utente.getUsername(), psw));
                 Preferences.saveUtente(getContext(), utente);
 
-            requireActivity().runOnUiThread(()->{
-                NavController controller = Navigation.findNavController(binding.getRoot());
-                NavDirections destinazione=LoginFragmentDirections.actionLoginFragmentToHomeFragment();
-                controller.navigate(destinazione);
-            });
-            }
-            catch(Exception e){
+                requireActivity().runOnUiThread(() -> {
+                    NavController controller = Navigation.findNavController(binding.getRoot());
+                    NavDirections destinazione = ModificaUtenteFragmentDirections.actionModificaFragmentToProfileFragment2();
+                    controller.navigate(destinazione);
+                });
+            }catch(Exception e){
                 throw new RuntimeException(e);
             }
-        } else if (response.code()==400) {
+        }else{
             String body=response.body().string();
             requireActivity().runOnUiThread(()->{
                 Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();

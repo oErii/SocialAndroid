@@ -10,7 +10,9 @@ import com.example.progettosocial.api.dto.request.DeletePostRequest;
 import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.request.RegistrazioneRequest;
 import com.example.progettosocial.api.dto.request.UpdateCommentoRequest;
+import com.example.progettosocial.api.dto.request.UpdatePasswordRequest;
 import com.example.progettosocial.api.dto.request.UpdatePostRequest;
+import com.example.progettosocial.api.dto.request.UpdateUtenteRequest;
 import com.example.progettosocial.utils.Preferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -215,6 +217,40 @@ public class ApiManager {
                 .url(BASE_URL + "/Post/updatePost")
                 .post(requestBody)
                 .header("key", API_KEY)
+                .header("Authorization", Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void updateUtente(UpdateUtenteRequest updateUtenteRequest, Callback callback, Context context){
+        String body=null;
+        try {
+            body = mapper.writeValueAsString(updateUtenteRequest);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
+        Request request =new Request.Builder()
+                .url(BASE_URL+"/Utente/updateUtente")
+                .post(requestBody)
+                .header("key",API_KEY)
+                .header("Authorization", Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void updatePassword(UpdatePasswordRequest updatePasswordRequest, Callback callback, Context context){
+        String body=null;
+        try {
+            body = mapper.writeValueAsString(updatePasswordRequest);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
+        Request request =new Request.Builder()
+                .url(BASE_URL+"/Utente/updatePassword")
+                .post(requestBody)
+                .header("key",API_KEY)
                 .header("Authorization", Preferences.loadTKN(context))
                 .build();
         client.newCall(request).enqueue(callback);

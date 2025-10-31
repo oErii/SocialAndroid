@@ -48,4 +48,26 @@ public class Preferences {
         SharedPreferences sp = context.getSharedPreferences("isLoggato", MODE_PRIVATE);
         return sp.getBoolean("loggato", false);
     }
+
+    public static void saveUtente(Context context, UtenteInfoDTO utente) {
+        SharedPreferences sp = context.getSharedPreferences("utenteInfo" , MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putLong("id", utente.getId());
+        editor.putString("username", utente.getUsername());
+        editor.putString("email", utente.getEmail());
+        editor.putString("nome", utente.getNome());
+        editor.putString("cognome", utente.getCognome());
+        editor.apply();
+    }
+
+    public static UtenteInfoDTO loadUtente(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("utenteInfo", MODE_PRIVATE);
+        return new UtenteInfoDTO(
+                sp.getString("username",""),
+                sp.getString("email", ""),
+                sp.getString("nome",""),
+                sp.getString("cognome",""),
+                sp.getLong("id",0)
+        );
+    };
 }
