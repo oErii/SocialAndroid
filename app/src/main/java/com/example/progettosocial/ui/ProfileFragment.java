@@ -68,6 +68,12 @@ public class ProfileFragment extends Fragment implements Callback {
             controller.navigate(destinazione);
         });
 
+        binding.ModificaUsername.setOnClickListener(v->{
+            NavController controller = Navigation.findNavController(binding.getRoot());
+            NavDirections destinazione = ProfileFragmentDirections.actionProfileFragmentToModificaUsernameFragment();
+            controller.navigate(destinazione);
+        });
+
         binding.ModificaPsw.setOnClickListener(v->{
             NavController controller = Navigation.findNavController(binding.getRoot());
             NavDirections destinazione = ProfileFragmentDirections.actionProfileFragmentToModificaPswFragment();
