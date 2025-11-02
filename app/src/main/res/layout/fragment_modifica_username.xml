@@ -38,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:layout_centerInParent="true" />
@@ -50,6 +51,7 @@
     <TextView
         android:id="@+id/Titolo"
         android:text="@string/ModificaUsername"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/topAppBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +91,7 @@
         app:layout_constraintWidth_percent="0.8"
         android:layout_height="wrap_content"
         android:text="@string/Salva"
+        android:textStyle="bold"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

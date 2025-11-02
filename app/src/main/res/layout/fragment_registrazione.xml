@@ -24,6 +24,7 @@
     <TextView
         android:id="@+id/Titolo"
         android:text="@string/Registrazione"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/LogoSocial"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -176,6 +177,7 @@
         app:layout_constraintWidth_percent="0.8"
         android:layout_height="wrap_content"
         android:text="@string/Registrati"
+        android:textStyle="bold"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -189,6 +191,7 @@
     <Button
         style="?attr/materialButtonOutlinedStyle"
         android:id="@+id/Accedi"
+        android:textStyle="bold"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.8"
         android:layout_height="wrap_content"
