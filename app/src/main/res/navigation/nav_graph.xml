@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_modificaUsernameFragment"
+            app:destination="@id/modificaUsernameFragment" />
     </fragment>
     <fragment
         android:id="@+id/modificaFragment"
@@ -91,6 +94,15 @@
         tools:layout="@layout/fragment_modifica_psw" >
         <action
             android:id="@+id/action_modificaPswFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/modificaUsernameFragment"
+        android:name="com.example.progettosocial.ui.ModificaUsernameFragment"
+        android:label="fragment_modifica_username"
+        tools:layout="@layout/fragment_modifica_username" >
+        <action
+            android:id="@+id/action_modificaUsernameFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

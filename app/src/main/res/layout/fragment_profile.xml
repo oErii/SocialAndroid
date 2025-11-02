@@ -133,6 +133,22 @@
 
     <Button
         style="?attr/materialButtonOutlinedStyle"
+        android:id="@+id/ModificaUsername"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        android:text="@string/ModificaUsername"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ModificaUtente"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/material_dynamic_neutral30"
+        app:strokeColor="@color/verde"
+        />
+
+    <Button
+        style="?attr/materialButtonOutlinedStyle"
         android:id="@+id/ModificaPsw"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.8"
@@ -141,7 +157,7 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ModificaUtente"
+        app:layout_constraintTop_toBottomOf="@id/ModificaUsername"
         android:layout_marginTop="10dp"
         android:textColor="@color/material_dynamic_neutral30"
         app:strokeColor="@color/verde"
@@ -160,5 +176,7 @@
         android:layout_marginBottom="25dp"
         android:backgroundTint="@color/rosso"
         />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
