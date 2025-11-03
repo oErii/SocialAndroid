@@ -69,6 +69,11 @@ public class EliminaUtenteFragment extends Fragment implements Callback {
                 NavDirections destinazione = EliminaUtenteFragmentDirections.actionEliminaUtenteFragment2ToLoginFragment();
                 controller.navigate(destinazione);
             });
+        }else{
+            String body=response.body().string();
+            requireActivity().runOnUiThread(() -> {
+                Toast.makeText(getContext(),body, Toast.LENGTH_LONG).show();
+            });
         }
     }
 

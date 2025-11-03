@@ -9,25 +9,13 @@
         android:id="@+id/titolo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Elimina"
+        android:text="@string/Attendi"
         android:textStyle="bold"
         android:layout_margin="20dp"
         android:textSize="24sp" />
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/delete"/>
-    <TextView
-        android:id="@+id/text"
-        android:textColor="@color/black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/EliminaPost"
-        android:layout_margin="20dp"
-        android:textSize="18sp"/>
 
     <com.airbnb.lottie.LottieAnimationView
+        android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:lottie_rawRes="@raw/loading"/>
