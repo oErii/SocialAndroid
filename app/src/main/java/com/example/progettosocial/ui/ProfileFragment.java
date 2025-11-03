@@ -79,6 +79,12 @@ public class ProfileFragment extends Fragment implements Callback {
             NavDirections destinazione = ProfileFragmentDirections.actionProfileFragmentToModificaPswFragment();
             controller.navigate(destinazione);
         });
+
+        binding.EliminaUtente.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(binding.getRoot());
+            NavDirections destinazione = ProfileFragmentDirections.actionProfileFragmentToEliminaUtenteFragment2();
+            controller.navigate(destinazione);
+        });
     }
 
     @Override

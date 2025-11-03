@@ -33,4 +33,6 @@
     <string name="RipetiPassword">Ripeti Password</string>
     <string name="PannContr">Pannello di Controllo</string>
     <string name="ProfiloUtente">Profilo Utente</string>
+    <string name="Correzione">Correggere?</string>
+    <string name="EliminaUtente">Elimina Utente</string>
 </resources>

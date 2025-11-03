@@ -15,11 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.progettosocial.R;
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.CreatePostRequest;
+import com.example.progettosocial.api.dto.request.DeletePostRequest;
 import com.example.progettosocial.api.dto.request.UpdatePostRequest;
 import com.example.progettosocial.api.dto.response.LastPostResponse;
 import com.example.progettosocial.api.dto.response.PostDTO;
@@ -31,10 +33,22 @@ import com.example.progettosocial.utils.DBManager;
 import com.example.progettosocial.utils.Preferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.ai.FirebaseAI;
+import com.google.firebase.ai.GenerativeModel;
+import com.google.firebase.ai.java.GenerativeModelFutures;
+import com.google.firebase.ai.type.Content;
+import com.google.firebase.ai.type.GenerateContentResponse;
+import com.google.firebase.ai.type.GenerativeBackend;
 
 import java.io.IOException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,6 +61,9 @@ public class HomeFragment extends Fragment implements Callback {
     DBManager db;
     PostDAO postDao;
     PostAdapter adapter;
+    String testoCorretto;
+    private GenerativeModelFutures model;
+
     public static Boolean modificaOn=false;
     public static Post post;
     public static TextInputEditText modificaTesto;
@@ -69,7 +86,8 @@ public class HomeFragment extends Fragment implements Callback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        GenerativeModel ai = FirebaseAI.getInstance(GenerativeBackend.googleAI()).generativeModel("gemini-2.0-flash");
+        model = GenerativeModelFutures.from(ai);
         db = DBManager.getInstance(requireContext());
         postDao = db.getPostDao();
 
@@ -107,9 +125,7 @@ public class HomeFragment extends Fragment implements Callback {
                 if (contenutoPost.isEmpty()) {
                     Toast.makeText(getContext(), "Post Vuoto", Toast.LENGTH_SHORT).show();
                 } else {
-                    CreatePostRequest nuovoPostRequest = new CreatePostRequest(contenutoPost);
-                    ApiManager.getInstance().creaPost(nuovoPostRequest, this, requireContext());
-                    binding.PostContent.setText(null);//svuota il campo dopo avere creato il post
+                    correttoreAI(contenutoPost);
                 }
             } else{
                 UpdatePostRequest updatePostRequest = new UpdatePostRequest(post.getId(), binding.PostContent.getText().toString());
@@ -201,5 +217,62 @@ public class HomeFragment extends Fragment implements Callback {
                 });
             }
         }
+    }
+
+    private void correttoreAI(String testoOriginale){
+        String prompt = "Correggi eventuali errori ortografici o grammaticali nel seguente testo: \""
+                + testoOriginale
+                + "\". " +
+                "Se non ci sono errori, restituisci lo stesso testo identico. " +
+                "Rispondi SOLO con il testo corretto, senza spiegazioni.";
+
+        Content input = new Content.Builder().addText(prompt).build();
+        Executor executor = Executors.newSingleThreadExecutor();
+        ListenableFuture<GenerateContentResponse> response = model.generateContent(input);
+        FutureCallback<GenerateContentResponse> callback = new FutureCallback<>() {
+            @Override
+            public void onSuccess(GenerateContentResponse result) {
+                requireActivity().runOnUiThread(() -> {
+                    testoCorretto = result.getText().trim();
+
+                    if (testoOriginale.equals(testoCorretto)) {
+                        CreatePostRequest nuovoPostRequest = new CreatePostRequest(testoCorretto);
+                        ApiManager.getInstance().creaPost(nuovoPostRequest, HomeFragment.this, requireContext());
+                        binding.PostContent.setText(null);//svuota il campo dopo avere creato il post
+                    }else {
+                        View myDialogCustomView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_correttore, null);
+                        TextView tvOriginale = myDialogCustomView.findViewById(R.id.tvOriginale);
+                        TextView tvCorretto = myDialogCustomView.findViewById(R.id.tvCorretto);
+
+                        tvOriginale.setText("Originale:\n" + testoOriginale);
+                        tvCorretto.setText("Corretto:\n" + testoCorretto);
+
+                        new MaterialAlertDialogBuilder(requireContext())
+                                .setView(myDialogCustomView)
+                                .setCancelable(false)
+                                .setPositiveButton("Correggi contenuto", (dialog, position) -> {
+                                    CreatePostRequest nuovoPostRequest = new CreatePostRequest(testoCorretto);
+                                    ApiManager.getInstance().creaPost(nuovoPostRequest, HomeFragment.this, requireContext());
+                                    binding.PostContent.setText(null);
+                                })
+                                .setNegativeButton("Mantieni contenuto", (dialog, position) -> {
+                                    CreatePostRequest nuovoPostRequest = new CreatePostRequest(testoOriginale);
+                                    ApiManager.getInstance().creaPost(nuovoPostRequest, HomeFragment.this, requireContext());
+                                    binding.PostContent.setText(null);
+                                })
+                                .show();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
+                requireActivity().runOnUiThread(() -> {
+                    Toast.makeText(requireContext(), "Errore durante la correzione AI", Toast.LENGTH_SHORT).show();
+                });
+            }
+        };
+        Futures.addCallback(response, callback, executor);
     }
 }

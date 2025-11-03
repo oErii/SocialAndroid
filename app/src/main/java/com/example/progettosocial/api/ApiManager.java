@@ -7,6 +7,7 @@ import com.example.progettosocial.api.dto.request.CreateLikeRequest;
 import com.example.progettosocial.api.dto.request.CreatePostRequest;
 import com.example.progettosocial.api.dto.request.DeleteCommentoRequest;
 import com.example.progettosocial.api.dto.request.DeletePostRequest;
+import com.example.progettosocial.api.dto.request.DeleteUtenteRequest;
 import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.request.RegistrazioneRequest;
 import com.example.progettosocial.api.dto.request.UpdateCommentoRequest;
@@ -267,6 +268,23 @@ public class ApiManager {
         RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
         Request request =new Request.Builder()
                 .url(BASE_URL+"/Utente/updateUsername")
+                .post(requestBody)
+                .header("key",API_KEY)
+                .header("Authorization", Preferences.loadTKN(context))
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public void deleteUtente(DeleteUtenteRequest deleteUtenteRequest, Callback callback, Context context){
+        String body=null;
+        try {
+            body = mapper.writeValueAsString(deleteUtenteRequest);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        RequestBody requestBody = RequestBody.create(body, MediaType.parse("application/json"));
+        Request request =new Request.Builder()
+                .url(BASE_URL+"/Utente/deleteUtente")
                 .post(requestBody)
                 .header("key",API_KEY)
                 .header("Authorization", Preferences.loadTKN(context))

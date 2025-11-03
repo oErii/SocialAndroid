@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "595166509169",
+    "project_id": "progettosocial-70124",
+    "storage_bucket": "progettosocial-70124.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595166509169:android:edac5125bd1f26ac2703d0",
+        "android_client_info": {
+          "package_name": "com.example.progettosocial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFVbgXumZ25SN-kM6tKJioymgZGHMyMrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

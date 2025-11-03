@@ -169,6 +169,23 @@
         />
 
     <Button
+        style="?attr/materialButtonOutlinedStyle"
+        android:id="@+id/EliminaUtente"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.8"
+        android:layout_height="wrap_content"
+        android:text="@string/EliminaUtente"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ModificaPsw"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/material_dynamic_neutral30"
+        app:strokeColor="@color/rosso"
+        />
+
+    <Button
         android:id="@+id/Logout"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.8"

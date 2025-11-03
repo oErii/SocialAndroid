@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     id "androidx.navigation.safeargs"
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -31,12 +32,15 @@ android {
 }
 
 dependencies {
+    implementation(libs.guava)
+    implementation(libs.reactive.streams)
     implementation libs.okhttp
     implementation libs.jackson.databind
     implementation libs.jackson.core
     implementation libs.jackson.annotations
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
+    implementation libs.firebase.ai
     def room_version = "2.8.2"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
