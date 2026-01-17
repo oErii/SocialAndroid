@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.progettosocial.R;
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.RegistrazioneRequest;
 import com.example.progettosocial.databinding.FragmentRegistrazioneBinding;
@@ -54,9 +55,9 @@ public class RegistrazioneFragment extends Fragment implements Callback {
         binding.Registrati.setOnClickListener(
                 v->{
                     if(!binding.Psw.getText().toString().equals(binding.RipPsw.getText().toString())){
-                        Toast.makeText(getContext(), "Le Password non corrispondono", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.ErrorePSW), Toast.LENGTH_SHORT).show();
                     }else if(binding.Psw.getText().toString().isEmpty()||binding.Username.getText().toString().isEmpty()||binding.Email.getText().toString().isEmpty()||binding.Nome.getText().toString().isEmpty()||binding.Cognome.getText().toString().isEmpty()){
-                        Toast.makeText(getContext(), "Dati Mancanti", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.DatiManc), Toast.LENGTH_SHORT).show();
                     }else{
                         RegistrazioneRequest registrazioneRequest = new RegistrazioneRequest(binding.Username.getText().toString(), binding.Email.getText().toString(), binding.Psw.getText().toString(), binding.Nome.getText().toString(), binding.Cognome.getText().toString());
                         ApiManager.getInstance().registra(registrazioneRequest, this);
@@ -71,7 +72,7 @@ public class RegistrazioneFragment extends Fragment implements Callback {
     @Override
     public void onFailure(@NonNull Call call, @NonNull IOException e) {
         requireActivity().runOnUiThread(()->{
-            Toast.makeText(requireContext(),  "Qualcosa è andato storto controlla la connessione internet e riprova", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(),  getString(R.string.ErrorConn), Toast.LENGTH_SHORT).show();
         });
     }
 

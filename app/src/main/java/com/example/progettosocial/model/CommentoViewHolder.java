@@ -89,15 +89,15 @@ public class CommentoViewHolder extends RecyclerView.ViewHolder implements Callb
                     View myDialogCustomView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.dialog_elimina, null);
                     new MaterialAlertDialogBuilder(itemView.getContext())
                             .setView(myDialogCustomView)
-                            .setNeutralButton("Cancel", (dialog, position) -> {
+                            .setNeutralButton(itemView.getContext().getString(R.string.Annulla), (dialog, position) -> {
 
                             })
-                            .setNegativeButton("Elimina", (dialog, position) -> {
+                            .setNegativeButton(itemView.getContext().getString(R.string.Elimina), (dialog, position) -> {
                                 String username = Preferences.loadLoginRequest(itemView.getContext()).getUsername();
                                 if(textViewUser.getText().toString().equals(username)) {
                                     ApiManager.getInstance().deleteCommento(new DeleteCommentoRequest(commento.getId()), this, itemView.getContext());
                                 }else {
-                                    Toast.makeText(itemView.getContext() , "Impossibile eliminare commento", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(itemView.getContext() , itemView.getContext().getString(R.string.ImpElimComm), Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .show();

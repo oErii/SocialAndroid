@@ -62,7 +62,7 @@ public class ModificaPswFragment extends Fragment implements Callback {
                 psw=binding.Psw.getText().toString();
                 ApiManager.getInstance().updatePassword(new UpdatePasswordRequest(binding.Psw.getText().toString()), this, getContext());
             }else{
-                Toast.makeText(getContext(), "Le Password non combaciano", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.ErrorePSW), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -70,7 +70,7 @@ public class ModificaPswFragment extends Fragment implements Callback {
     @Override
     public void onFailure(@NonNull Call call, @NonNull IOException e) {
         requireActivity().runOnUiThread(()->{
-            Toast.makeText(requireContext(),  "Qualcosa è andato storto controlla la connessione internet e riprova", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.ErrorConn), Toast.LENGTH_SHORT).show();
         });
     }
 

@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-    implementation("com.airbnb.android:lottie:6.7.1")
     implementation(libs.guava)
     implementation(libs.reactive.streams)
     implementation libs.okhttp

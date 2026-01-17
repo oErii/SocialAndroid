@@ -7,11 +7,16 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.progettosocial.R;
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.CreateCommentoRequest;
 import com.example.progettosocial.api.dto.request.UpdateCommentoRequest;
@@ -33,7 +38,6 @@ import okhttp3.Response;
 public class CommentiFragment extends Fragment implements Callback, ListaPostCallback {
 
     FragmentCommentiBinding binding;
-
     CommentiFragmentArgs commentiFA;
     Long postID;
     public static Boolean modificaOn=false;
@@ -83,7 +87,7 @@ public class CommentiFragment extends Fragment implements Callback, ListaPostCal
             if(!modificaOn) {
                 String contenutoCommento = binding.CommentoContent.getText().toString();
                 if (contenutoCommento.isEmpty()) {
-                    Toast.makeText(getContext(), "Commento Vuoto", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(R.string.CommVuoto), Toast.LENGTH_SHORT).show();
                 } else {
 
                     CreateCommentoRequest nuovoCommentoRequest = new CreateCommentoRequest(postID, contenutoCommento);
@@ -98,12 +102,18 @@ public class CommentiFragment extends Fragment implements Callback, ListaPostCal
                 commento = null;
             }
         });
+
+        binding.imgUserProfile.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(binding.getRoot());
+            NavDirections destinazione=CommentiFragmentDirections.actionCommentiFragmentToProfileFragment2();
+            controller.navigate(destinazione);
+        });
     }
 
     @Override
     public void onFailure(@NonNull Call call, @NonNull IOException e) {
         requireActivity().runOnUiThread(()->{
-            Toast.makeText(requireContext(), "Qualcosa è andato storto controlla la connessione internet e riprova", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getContext().getString(R.string.ErrorConn), Toast.LENGTH_SHORT).show();
         });
     }
 

@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TheSocial</string>
+    <string name="app_name">TheSocial.</string>
     <string name="Entra">Join</string>
     <string name="Accedi">Log In</string>
     <string name="Registrati">Sign In</string>
     <string name="Registrazione">Sign Up</string>
     <string name="Nome">Name</string>
     <string name="Cognome">Surname</string>
+    <string name="Commenti">Comments.</string>
+    <string name="ScrPost">Write Post...</string>
+    <string name="ScrCommento">Write Comment</string>
+    <string name="Modifica">Edit</string>
+    <string name="Elimina">Delete</string>
+    <string name="EliminaPost">Do you want to delete the post?</string>
+    <string name="ModificaUtente">Edit Account</string>
+    <string name="ModificaUsername">Edit Username</string>
+    <string name="ModificaPassword">Edit Password</string>
+    <string name="Salva">Save Changes</string>
+    <string name="Indietro">Back</string>
+    <string name="Profilo">Profile</string>
+    <string name="RipetiPassword">Repeat Password</string>
+    <string name="PannContr">Control Panel</string>
+    <string name="ProfiloUtente">User Profile</string>
+    <string name="Correzione">Correct?</string>
+    <string name="EliminaUtente">Delete Account</string>
+    <string name="Attendi">Wait</string>
+    <string name="Annulla">Cancel</string>
+    <string name="ImpElimComm">Unable to delete comment</string>
+    <string name="PostNonTuo">The Post is not yours</string>
+    <string name="ImpCarPost">Unable to Load Posts</string>
+    <string name="CommVuoto">Empty Comment</string>
+    <string name="ErrorConn">Something went wrong. Check your connection.</string>
+    <string name="PostVuoto">Empty Post</string>
+    <string name="Originale">Original</string>
+    <string name="Corretto">Correct</string>
+    <string name="ErroreAI">Error during AI correction</string>
+    <string name="ErrorePSW">The passwords mismatch</string>
+    <string name="DatiManc">Missing Data</string>
 </resources>

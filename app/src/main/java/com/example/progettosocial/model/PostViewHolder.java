@@ -80,14 +80,14 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements Callback 
                     View myDialogCustomView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.dialog_elimina, null);
                     new MaterialAlertDialogBuilder(itemView.getContext())
                             .setView(myDialogCustomView)
-                            .setNeutralButton("Cancel", (dialog, position) -> {
+                            .setNeutralButton(itemView.getContext().getString(R.string.Annulla), (dialog, position) -> {
 
                             })
-                            .setNegativeButton("Elimina", (dialog, position) -> {
+                            .setNegativeButton(itemView.getContext().getString(R.string.Elimina), (dialog, position) -> {
                                 if(post.isMine()) {
                                     ApiManager.getInstance().deletePost(new DeletePostRequest(post.getId()), this, itemView.getContext());
                                 }else {
-                                    Toast.makeText(itemView.getContext(), "Il post non è tuo", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(itemView.getContext(), itemView.getContext().getString(R.string.PostNonTuo), Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .show();
@@ -98,7 +98,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements Callback 
                         HomeFragment.post = post;
                     }
                     else{
-                        Toast.makeText(itemView.getContext(), "Il Post non è tuo", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(itemView.getContext(), itemView.getContext().getString(R.string.PostNonTuo), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     postdao.updatePost(post);
@@ -212,7 +212,7 @@ public class PostViewHolder extends RecyclerView.ViewHolder implements Callback 
 
             if (!response.isSuccessful()) {
                 itemView.post(() -> {
-                    Toast.makeText(itemView.getContext(), "Impossibile caricare i post", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(itemView.getContext(), itemView.getContext().getString(R.string.ImpCarPost), Toast.LENGTH_SHORT).show();
                 });
             } else {
                 ObjectMapper mapper = new ObjectMapper();

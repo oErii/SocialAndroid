@@ -70,4 +70,11 @@ public class Preferences {
                 sp.getLong("id",0)
         );
     };
+
+    public static void prova(Context context, String string){
+        SharedPreferences sp = context.getSharedPreferences("prova", MODE_PRIVATE);
+        SharedPreferences.Editor editor= sp.edit();
+        editor.putString("saluto", string);
+        editor.apply();
+    }
 }

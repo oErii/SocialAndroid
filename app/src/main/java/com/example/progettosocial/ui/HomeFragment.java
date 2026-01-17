@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
@@ -123,7 +124,7 @@ public class HomeFragment extends Fragment implements Callback {
             if(!modificaOn) {
                 String contenutoPost = binding.PostContent.getText().toString();
                 if (contenutoPost.isEmpty()) {
-                    Toast.makeText(getContext(), "Post Vuoto", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getString(R.string.PostVuoto), Toast.LENGTH_SHORT).show();
                 } else {
                     correttoreAI(contenutoPost);
                 }
@@ -142,7 +143,7 @@ public class HomeFragment extends Fragment implements Callback {
     @Override
     public void onFailure(@NonNull Call call, @NonNull IOException e) {
         requireActivity().runOnUiThread(()->{
-            Toast.makeText(requireContext(), "Qualcosa è andato storto controlla la connessione internet e riprova", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getContext().getString(R.string.ErrorConn), Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -153,7 +154,12 @@ public class HomeFragment extends Fragment implements Callback {
 
             if (!response.isSuccessful()) {
                 requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(requireContext(), "Impossibile caricare i post", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getContext().getString(R.string.ImpCarPost), Toast.LENGTH_SHORT).show();
+                    db = DBManager.getInstance(requireContext());
+                    postDao = db.getPostDao();
+                    binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+                    adapter = new PostAdapter(postDao.getAll());
+                    binding.recyclerViewPosts.setAdapter(adapter);
                 });
             } else {
                 ObjectMapper mapper = new ObjectMapper();
@@ -244,18 +250,18 @@ public class HomeFragment extends Fragment implements Callback {
                         TextView tvOriginale = myDialogCustomView.findViewById(R.id.tvOriginale);
                         TextView tvCorretto = myDialogCustomView.findViewById(R.id.tvCorretto);
 
-                        tvOriginale.setText("Originale:\n" + testoOriginale);
-                        tvCorretto.setText("Corretto:\n" + testoCorretto);
+                        tvOriginale.setText(getString(R.string.Originale)+":\n" + testoOriginale);
+                        tvCorretto.setText(getString(R.string.Corretto)+":\n" + testoCorretto);
 
                         new MaterialAlertDialogBuilder(requireContext())
                                 .setView(myDialogCustomView)
                                 .setCancelable(false)
-                                .setPositiveButton("Correggi contenuto", (dialog, position) -> {
+                                .setPositiveButton(getString(R.string.Corretto), (dialog, position) -> {
                                     CreatePostRequest nuovoPostRequest = new CreatePostRequest(testoCorretto);
                                     ApiManager.getInstance().creaPost(nuovoPostRequest, HomeFragment.this, requireContext());
                                     binding.PostContent.setText(null);
                                 })
-                                .setNegativeButton("Mantieni contenuto", (dialog, position) -> {
+                                .setNegativeButton(getString(R.string.Originale), (dialog, position) -> {
                                     CreatePostRequest nuovoPostRequest = new CreatePostRequest(testoOriginale);
                                     ApiManager.getInstance().creaPost(nuovoPostRequest, HomeFragment.this, requireContext());
                                     binding.PostContent.setText(null);
@@ -269,7 +275,7 @@ public class HomeFragment extends Fragment implements Callback {
             public void onFailure(Throwable t) {
                 t.printStackTrace();
                 requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(requireContext(), "Errore durante la correzione AI", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getString(R.string.ErroreAI), Toast.LENGTH_SHORT).show();
                 });
             }
         };

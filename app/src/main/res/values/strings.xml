@@ -10,23 +10,23 @@
     <string name="Username" translatable="false">Username</string>
     <string name="Nome">Nome</string>
     <string name="Cognome">Cognome</string>
-    <string name="Home">Home</string>
+    <string name="Home" translatable="false">Home</string>
     <string name="Commenti">Commenti</string>
     <string name="ScrPost">Scrivi Post...</string>
-    <string name="iconaPosta">icona posta\n</string>
+    <string name="iconaPosta" translatable="false">icona posta\n</string>
     <string name="ScrCommento">Scrivi Commento...</string>
     <string name="Modifica">Modifica</string>
     <string name="Elimina">Elimina</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="EliminaPost">Vuoi eliminare il Post?</string>
-    <string name="icnLogOut">icona LogOut\n</string>
-    <string name="iconaProfilo">Icona Profilo</string>
+    <string name="icnLogOut" translatable="false">icona LogOut\n</string>
+    <string name="iconaProfilo" translatable="false">Icona Profilo</string>
     <string name="ModificaUtente">Modifica Utente</string>
     <string name="ModificaUsername">Modifica Username</string>
     <string name="ModificaPassword">Modifica Password</string>
-    <string name="Logout">Logout</string>
-    <string name="menu">Menu</string>
+    <string name="Logout" translatable="false">Logout</string>
+    <string name="menu" translatable="false">Menu</string>
     <string name="Salva">Salva Modifiche</string>
     <string name="Indietro">Indietro</string>
     <string name="Profilo">Profilo</string>
@@ -36,4 +36,16 @@
     <string name="Correzione">Correggere?</string>
     <string name="EliminaUtente">Elimina Utente</string>
     <string name="Attendi">Attendi</string>
+    <string name="Annulla">Annulla</string>
+    <string name="ImpElimComm">Impossibile eliminare commento</string>
+    <string name="PostNonTuo">Il Post non è tuo</string>
+    <string name="ImpCarPost">Impossibile Caricare i Post</string>
+    <string name="CommVuoto">Commento Vuoto</string>
+    <string name="ErrorConn">Qualcosa è andato storto. Controlla la connessione.</string>
+    <string name="PostVuoto">Post Vuoto</string>
+    <string name="Originale">Originale</string>
+    <string name="Corretto">Corretto</string>
+    <string name="ErroreAI">Errore durante la correzione AI</string>
+    <string name="ErrorePSW">Le password non combaciano</string>
+    <string name="DatiManc">Dati Mancanti</string>
 </resources>

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.progettosocial.R;
 import com.example.progettosocial.api.ApiManager;
 import com.example.progettosocial.api.dto.request.LoginRequest;
 import com.example.progettosocial.api.dto.response.UtenteInfoDTO;
@@ -78,7 +79,7 @@ public class LoginFragment extends Fragment implements Callback {
     @Override
     public void onFailure(@NonNull Call call, @NonNull IOException e) {
         requireActivity().runOnUiThread(()->{
-            Toast.makeText(requireContext(),  "Qualcosa è andato storto controlla la connessione internet e riprova", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(),  getString(R.string.ErrorConn), Toast.LENGTH_SHORT).show();
         });
     }
 

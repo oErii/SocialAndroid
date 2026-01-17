@@ -65,7 +65,7 @@ public class ModificaUtenteFragment extends Fragment implements Callback {
     @Override
     public void onFailure(@NonNull Call call, @NonNull IOException e) {
         requireActivity().runOnUiThread(()->{
-            Toast.makeText(requireContext(),  "Qualcosa è andato storto controlla la connessione internet e riprova", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(),  getString(R.string.ErrorConn), Toast.LENGTH_SHORT).show();
         });
     }
 

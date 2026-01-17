@@ -4,10 +4,8 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:fontFamily">@font/gotham</item>
+
     </style>
-
-    <style name="Theme.ProgettoSocial" parent="Base.Theme.ProgettoSocial" />
-
 
 
 </resources>
